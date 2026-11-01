@@ -169,11 +169,11 @@
               <i class="fa-regular fa-id-card text-sky-800 mr-1.5"></i> Salinan Kad Pengenalan (HD / PDF)
             </label>
             <p class="text-[11px] text-slate-500 mb-2">
-              Digunakan untuk tujuan permohonan permit polis.
+              Digunakan secara sulit untuk permohonan permit polis (tidak dipaparkan di web).
             </p>
             <input type="file" id="fileIC" accept="image/jpeg,image/png,image/webp,.pdf" 
               class="w-full text-xs text-slate-600 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-sky-800 file:text-white hover:file:bg-sky-900 cursor-pointer" />
-            <div id="fileExistingICLabel" class="hidden mt-2 text-[11px] text-emerald-700 font-semibold"></div>
+            <div id="fileExistingICLabel" class="hidden mt-2 text-[11px] text-slate-600 font-medium"></div>
           </div>
         </div>
 
@@ -199,7 +199,7 @@
               <th class="py-3.5 px-4 font-bold text-center">Tarikh</th>
               <th class="py-3.5 px-4 font-bold">Sedia Di DUN</th>
               <th class="py-3.5 px-3 font-bold text-center">Gambar HD</th>
-              <th class="py-3.5 px-3 font-bold text-center">Salinan IC</th>
+              <th class="py-3.5 px-3 font-bold text-center">Status IC</th>
               <th class="py-3.5 px-4 font-bold text-center">Tindakan</th>
             </tr>
           </thead>
@@ -213,7 +213,7 @@
   </main>
 
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzt0soGELMXkHdLbNAc2zHVPe1qEwS6o0VCBUbr7v2lJWkWBx5RXA3ZrhhRGIDCnh8r/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwt-i0wrZsMBTcGbmvMCYSfy5MMfS5BoCMo7oEPvLLxBZVdXbatKT2UKHK6x_duNAc/exec";
     let speakerList = [];
 
     async function loadData() {
@@ -252,6 +252,7 @@
         const cleanPA = (item.telPA || "").replace(/[^0-9]/g, '');
         const dateFormatted = (item.tarikh || "").replace(/→|->/g, '\n→\n');
 
+        // Pautan Gambar HD (Kekal boleh dilihat untuk tujuan poster)
         let gambarBtn = `<span class="text-slate-400 text-[11px]">Tiada</span>`;
         if (item.gambarUrl && item.gambarUrl.startsWith('http')) {
           gambarBtn = `
@@ -260,12 +261,16 @@
             </a>`;
         }
 
-        let icBtn = `<span class="text-slate-400 text-[11px]">Tiada</span>`;
+        // Penunjuk Status IC Sahaja (Privasi: Tiada pautan dokumen dipaparkan)
+        let icIndicator = `
+          <span class="inline-flex items-center gap-1 bg-slate-100 text-slate-500 border border-slate-200 px-2 py-0.5 rounded-full text-[10px] font-medium">
+            <i class="fa-solid fa-circle-xmark text-slate-400"></i> Tiada
+          </span>`;
         if (item.icUrl && item.icUrl.startsWith('http')) {
-          icBtn = `
-            <a href="${item.icUrl}" target="_blank" class="inline-flex items-center gap-1 bg-sky-50 text-sky-800 border border-sky-300 px-2 py-0.5 rounded text-[11px] font-bold hover:bg-sky-100 transition shadow-sm">
-              <i class="fa-regular fa-id-card text-sky-600"></i> Lihat
-            </a>`;
+          icIndicator = `
+            <span class="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-0.5 rounded-full text-[10px] font-bold">
+              <i class="fa-solid fa-circle-check text-emerald-600"></i> Ada
+            </span>`;
         }
 
         return `
@@ -282,7 +287,7 @@
             <td class="py-3.5 px-4 text-center font-mono text-[11px] text-slate-600 align-top whitespace-pre-line">${dateFormatted}</td>
             <td class="py-3.5 px-4 text-slate-700 align-top text-[11px] font-medium leading-relaxed">${item.sediaTempat || '-'}</td>
             <td class="py-3.5 px-3 text-center align-top">${gambarBtn}</td>
-            <td class="py-3.5 px-3 text-center align-top">${icBtn}</td>
+            <td class="py-3.5 px-3 text-center align-top">${icIndicator}</td>
             <td class="py-3.5 px-4 text-center align-top">
               <div class="flex items-center justify-center gap-2">
                 <button onclick="editMaklumat(${idx})" class="text-blue-700 hover:text-blue-900 font-bold">Edit</button>
@@ -319,17 +324,19 @@
         document.getElementById("tarikhAkhir").value = parts[1];
       }
 
+      // Label Fail Gambar
       const gLabel = document.getElementById("fileExistingGambarLabel");
       if (s.gambarUrl && s.gambarUrl.startsWith('http')) {
-        gLabel.innerHTML = `<i class="fa-solid fa-check text-emerald-600 mr-1"></i> <a href="${s.gambarUrl}" target="_blank" class="underline font-bold">Gambar HD Sedia Ada</a> (Pilih fail baru jika mahu ganti).`;
+        gLabel.innerHTML = `<i class="fa-solid fa-check text-emerald-600 mr-1"></i> <a href="${s.gambarUrl}" target="_blank" class="underline font-bold">Gambar HD Sedia Ada</a> (Pilih fail baharu jika mahu ganti).`;
         gLabel.classList.remove("hidden");
       } else {
         gLabel.classList.add("hidden");
       }
 
+      // Label Salinan IC (Hanya beritahu status tersimpan tanpa memaparkan pautan)
       const icLabel = document.getElementById("fileExistingICLabel");
       if (s.icUrl && s.icUrl.startsWith('http')) {
-        icLabel.innerHTML = `<i class="fa-solid fa-check text-sky-600 mr-1"></i> <a href="${s.icUrl}" target="_blank" class="underline font-bold">Salinan IC Sedia Ada</a> (Pilih fail baru jika mahu ganti).`;
+        icLabel.innerHTML = `<i class="fa-solid fa-shield-halved text-emerald-600 mr-1"></i> Salinan IC sudah selamat disimpan di arkib Drive. (Pilih fail baharu jika perlu menggantikan).`;
         icLabel.classList.remove("hidden");
       } else {
         icLabel.classList.add("hidden");
@@ -386,7 +393,8 @@
 
     function salinMaklumat(index) {
       const s = speakerList[index];
-      const text = `NAMA: ${s.nama}\nNO. KAD PENGENALAN: ${s.ic}\nNO. TEL PENCERAMAH: ${s.telPenceramah}\nNO. TEL PA: ${s.telPA || '-'}\nJAWATAN: ${s.jawatan}\nTARIKH: ${s.tarikh.replace(/\n/g, ' ')}\nSEDIA CERAMAH DI DUN: ${s.sediaTempat || '-'}\nLINK GAMBAR HD: ${s.gambarUrl || 'Tiada'}\nLINK SALINAN IC: ${s.icUrl || 'Tiada'}`;
+      const hasIC = (s.icUrl && s.icUrl.startsWith('http')) ? 'Disimpan di Arkib (Sulit)' : 'Tiada';
+      const text = `NAMA: ${s.nama}\nNO. KAD PENGENALAN: ${s.ic}\nNO. TEL PENCERAMAH: ${s.telPenceramah}\nNO. TEL PA: ${s.telPA || '-'}\nJAWATAN: ${s.jawatan}\nTARIKH: ${s.tarikh.replace(/\n/g, ' ')}\nSEDIA CERAMAH DI DUN: ${s.sediaTempat || '-'}\nLINK GAMBAR HD: ${s.gambarUrl || 'Tiada'}\nSTATUS SALINAN IC: ${hasIC}`;
       navigator.clipboard.writeText(text);
       alert(`Maklumat rasmi ${s.nama} telah disalin!`);
     }
