@@ -185,29 +185,47 @@
       </form>
     </div>
 
-    <!-- 2. Jadual Rekod Penceramah -->
-    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-      <div class="overflow-x-auto">
-        <table class="w-full text-left border-collapse text-xs">
-          <thead>
-            <tr class="bg-[#dce8f5] text-[#173059] font-bold border-b border-blue-100">
-              <th class="py-3.5 px-4 font-bold">Nama</th>
-              <th class="py-3.5 px-4 font-bold">Jawatan</th>
-              <th class="py-3.5 px-4 font-bold">No KP</th>
-              <th class="py-3.5 px-4 font-bold">Tel Penceramah</th>
-              <th class="py-3.5 px-4 font-bold">Tel PA</th>
-              <th class="py-3.5 px-4 font-bold text-center">Tarikh</th>
-              <th class="py-3.5 px-4 font-bold">Sedia Di DUN</th>
-              <th class="py-3.5 px-3 font-bold text-center">Gambar HD</th>
-              <th class="py-3.5 px-3 font-bold text-center">Status IC</th>
-              <th class="py-3.5 px-4 font-bold text-center">Tindakan</th>
-            </tr>
-          </thead>
-          <tbody id="penceramahTableBody" class="divide-y divide-slate-100 text-slate-700">
-            <!-- Data dipaparkan secara automatik oleh JavaScript -->
-          </tbody>
-        </table>
+    <!-- 2. Bar Penapis Tag DUN & Jadual Rekod Penceramah -->
+    <div class="space-y-3">
+      
+      <!-- Filter Bar Tag DUN -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200/90 p-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-filter text-[#173059] text-xs"></i>
+            <span class="text-xs font-bold text-slate-800">Tapis Mengikut Tag DUN:</span>
+          </div>
+          <div id="dunFilterContainer" class="flex flex-wrap items-center gap-1.5">
+            <!-- Butang Penapis Tag dijana secara automatik -->
+          </div>
+        </div>
       </div>
+
+      <!-- Jadual Utama -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="bg-[#dce8f5] text-[#173059] font-bold border-b border-blue-100">
+                <th class="py-3.5 px-4 font-bold">Nama</th>
+                <th class="py-3.5 px-4 font-bold">Jawatan</th>
+                <th class="py-3.5 px-4 font-bold">No KP</th>
+                <th class="py-3.5 px-4 font-bold">Tel Penceramah</th>
+                <th class="py-3.5 px-4 font-bold">Tel PA</th>
+                <th class="py-3.5 px-4 font-bold text-center">Tarikh</th>
+                <th class="py-3.5 px-4 font-bold min-w-[240px]">Sedia Di DUN (Tag)</th>
+                <th class="py-3.5 px-3 font-bold text-center">Gambar HD</th>
+                <th class="py-3.5 px-3 font-bold text-center">Status IC</th>
+                <th class="py-3.5 px-4 font-bold text-center">Tindakan</th>
+              </tr>
+            </thead>
+            <tbody id="penceramahTableBody" class="divide-y divide-slate-100 text-slate-700">
+              <!-- Data dipaparkan secara automatik oleh JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
 
   </main>
@@ -215,6 +233,15 @@
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwt-i0wrZsMBTcGbmvMCYSfy5MMfS5BoCMo7oEPvLLxBZVdXbatKT2UKHK6x_duNAc/exec";
     let speakerList = [];
+    let activeDunFilter = "ALL";
+
+    const DUN_LIST = [
+      "Bukit Katil (Kerusi Calon PAS)",
+      "Paya Rumput (Kerusi Calon PAS)",
+      "Bemban (Kerusi Calon Wawasan)",
+      "Kesidang (Kerusi Calon Wawasan)",
+      "Ayer Keroh (Kerusi Calon Gerakan)"
+    ];
 
     async function loadData() {
       const tbody = document.getElementById("penceramahTableBody");
@@ -229,30 +256,116 @@
         console.error("Ralat pangkalan data:", e);
         speakerList = [];
       }
+      renderFilterButtons();
       renderTable();
+    }
+
+    function getTagStyle(rawName) {
+      const lower = rawName.toLowerCase();
+      if (lower.includes("pas")) {
+        return "bg-emerald-50 text-emerald-800 border-emerald-300 hover:bg-emerald-100";
+      } else if (lower.includes("wawasan")) {
+        return "bg-indigo-50 text-indigo-800 border-indigo-300 hover:bg-indigo-100";
+      } else if (lower.includes("gerakan")) {
+        return "bg-amber-50 text-amber-800 border-amber-300 hover:bg-amber-100";
+      }
+      return "bg-slate-100 text-slate-700 border-slate-300 hover:bg-slate-200";
+    }
+
+    function renderFilterButtons() {
+      const container = document.getElementById("dunFilterContainer");
+      
+      const counts = {};
+      DUN_LIST.forEach(d => counts[d] = 0);
+      let totalCount = speakerList.length;
+
+      speakerList.forEach(s => {
+        const dunStr = s.sediaTempat || "";
+        DUN_LIST.forEach(d => {
+          if (dunStr.includes(d)) counts[d]++;
+        });
+      });
+
+      let html = `
+        <button onclick="setFilter('ALL')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold border transition ${
+          activeDunFilter === 'ALL'
+            ? 'bg-[#173059] text-white border-[#173059] shadow-sm'
+            : 'bg-slate-100 text-slate-600 border-slate-200 hover:bg-slate-200'
+        }">
+          Semua DUN (${totalCount})
+        </button>
+      `;
+
+      DUN_LIST.forEach(dun => {
+        const isSelected = activeDunFilter === dun;
+        const shortLabel = dun.replace(" (Kerusi Calon", " -").replace(")", "");
+        const style = isSelected 
+          ? 'bg-[#173059] text-white border-[#173059] shadow-sm' 
+          : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50';
+
+        html += `
+          <button onclick="setFilter('${dun}')" class="px-2.5 py-1 rounded-lg text-[11px] font-semibold border transition ${style}">
+            ${shortLabel} <span class="ml-1 opacity-75">(${counts[dun]})</span>
+          </button>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function setFilter(dun) {
+      activeDunFilter = dun;
+      renderFilterButtons();
+      renderTable();
+    }
+
+    // Render setiap DUN sebagai Tag / Badge berasingan
+    function renderTags(sediaTempatString) {
+      if (!sediaTempatString || sediaTempatString.trim() === "-" || sediaTempatString.trim() === "") {
+        return `<span class="text-slate-400 text-[11px]">-</span>`;
+      }
+
+      const tags = sediaTempatString.split(',').map(t => t.trim()).filter(Boolean);
+      return `
+        <div class="flex flex-wrap gap-1.5 py-1">
+          ${tags.map(tag => {
+            const style = getTagStyle(tag);
+            return `
+              <span onclick="setFilter('${tag}')" title="Klik untuk tapis penceramah bagi ${tag}" class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold border cursor-pointer transition select-none shadow-xs ${style}">
+                <i class="fa-solid fa-tag text-[9px] opacity-70"></i>
+                ${tag}
+              </span>`;
+          }).join('')}
+        </div>
+      `;
     }
 
     function renderTable() {
       const tbody = document.getElementById("penceramahTableBody");
       
-      if (speakerList.length === 0) {
+      const filteredList = speakerList.filter(item => {
+        if (activeDunFilter === "ALL") return true;
+        return (item.sediaTempat || "").includes(activeDunFilter);
+      });
+
+      if (filteredList.length === 0) {
         tbody.innerHTML = `
           <tr>
             <td colspan="10" class="text-center py-12 text-slate-400">
               <i class="fa-regular fa-folder-open text-2xl text-slate-300 mb-2"></i>
-              <p>Pangkalan data kosong. Tiada rekod penceramah dijumpai di Google Sheet.</p>
+              <p>Tiada rekod penceramah dijumpai ${activeDunFilter !== "ALL" ? `bagi DUN <b>${activeDunFilter}</b>` : "di Google Sheet"}.</p>
             </td>
           </tr>
         `;
         return;
       }
 
-      tbody.innerHTML = speakerList.map((item, idx) => {
+      tbody.innerHTML = filteredList.map((item) => {
+        const originalIndex = speakerList.indexOf(item);
         const cleanTel = (item.telPenceramah || "").replace(/[^0-9]/g, '');
         const cleanPA = (item.telPA || "").replace(/[^0-9]/g, '');
         const dateFormatted = (item.tarikh || "").replace(/→|->/g, '\n→\n');
 
-        // Pautan Gambar HD (Kekal boleh dilihat untuk tujuan poster)
         let gambarBtn = `<span class="text-slate-400 text-[11px]">Tiada</span>`;
         if (item.gambarUrl && item.gambarUrl.startsWith('http')) {
           gambarBtn = `
@@ -261,7 +374,6 @@
             </a>`;
         }
 
-        // Penunjuk Status IC Sahaja (Privasi: Tiada pautan dokumen dipaparkan)
         let icIndicator = `
           <span class="inline-flex items-center gap-1 bg-slate-100 text-slate-500 border border-slate-200 px-2 py-0.5 rounded-full text-[10px] font-medium">
             <i class="fa-solid fa-circle-xmark text-slate-400"></i> Tiada
@@ -285,16 +397,16 @@
               ${cleanPA ? `<a href="tel:${cleanPA}" class="hover:underline text-slate-700">${item.telPA}</a>` : '-'}
             </td>
             <td class="py-3.5 px-4 text-center font-mono text-[11px] text-slate-600 align-top whitespace-pre-line">${dateFormatted}</td>
-            <td class="py-3.5 px-4 text-slate-700 align-top text-[11px] font-medium leading-relaxed">${item.sediaTempat || '-'}</td>
+            <td class="py-3 px-4 align-top">${renderTags(item.sediaTempat)}</td>
             <td class="py-3.5 px-3 text-center align-top">${gambarBtn}</td>
             <td class="py-3.5 px-3 text-center align-top">${icIndicator}</td>
             <td class="py-3.5 px-4 text-center align-top">
               <div class="flex items-center justify-center gap-2">
-                <button onclick="editMaklumat(${idx})" class="text-blue-700 hover:text-blue-900 font-bold">Edit</button>
+                <button onclick="editMaklumat(${originalIndex})" class="text-blue-700 hover:text-blue-900 font-bold">Edit</button>
                 <span class="text-slate-300">|</span>
-                <button onclick="salinMaklumat(${idx})" class="text-slate-600 hover:text-slate-800 font-medium">Salin</button>
+                <button onclick="salinMaklumat(${originalIndex})" class="text-slate-600 hover:text-slate-800 font-medium">Salin</button>
                 <span class="text-slate-300">|</span>
-                <button onclick="padamMaklumat(${idx})" class="text-rose-600 hover:text-rose-800 font-semibold">Padam</button>
+                <button onclick="padamMaklumat(${originalIndex})" class="text-rose-600 hover:text-rose-800 font-semibold">Padam</button>
               </div>
             </td>
           </tr>
@@ -324,7 +436,6 @@
         document.getElementById("tarikhAkhir").value = parts[1];
       }
 
-      // Label Fail Gambar
       const gLabel = document.getElementById("fileExistingGambarLabel");
       if (s.gambarUrl && s.gambarUrl.startsWith('http')) {
         gLabel.innerHTML = `<i class="fa-solid fa-check text-emerald-600 mr-1"></i> <a href="${s.gambarUrl}" target="_blank" class="underline font-bold">Gambar HD Sedia Ada</a> (Pilih fail baharu jika mahu ganti).`;
@@ -333,7 +444,6 @@
         gLabel.classList.add("hidden");
       }
 
-      // Label Salinan IC (Hanya beritahu status tersimpan tanpa memaparkan pautan)
       const icLabel = document.getElementById("fileExistingICLabel");
       if (s.icUrl && s.icUrl.startsWith('http')) {
         icLabel.innerHTML = `<i class="fa-solid fa-shield-halved text-emerald-600 mr-1"></i> Salinan IC sudah selamat disimpan di arkib Drive. (Pilih fail baharu jika perlu menggantikan).`;
