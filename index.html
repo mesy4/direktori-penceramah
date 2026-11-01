@@ -1,227 +1,46 @@
-<!DOCTYPE html>
-<html lang="ms">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Borang Penceramah PN PRN Melaka 2026</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <style>
-    /* Mengikut tema tepat Perikatan Nasional */
-    :root {
-      --pn-navy: #18325b;
-      --pn-header-bg: #173059;
-      --pn-btn: #1b3864;
-    }
-    body {
-      background-color: #f1f5f9;
-    }
-  </style>
-</head>
-<body class="font-sans antialiased text-slate-800">
-
-  <!-- Header Banner PN -->
-  <header class="bg-[#173059] text-white py-6 px-4 shadow-sm">
-    <div class="max-w-4xl mx-auto flex items-center justify-between">
-      <!-- Bendera Malaysia Kiri -->
-      <img src="https://flagcdn.com/w80/my.png" alt="Bendera Malaysia" class="w-12 h-8 md:w-16 md:h-10 object-cover rounded shadow-sm opacity-90" />
-
-      <!-- Tajuk Tengah -->
-      <div class="text-center px-2">
-        <h1 class="text-lg md:text-2xl font-bold tracking-tight text-white">
-          Borang Penceramah PN PRN Melaka 2026
-        </h1>
-        <p class="text-xs md:text-sm text-sky-300 font-medium mt-1">
-          Perikatan Nasional — Melaka
-        </p>
-      </div>
-
-      <!-- Bendera Malaysia Kanan -->
-      <img src="https://flagcdn.com/w80/my.png" alt="Bendera Malaysia" class="w-12 h-8 md:w-16 md:h-10 object-cover rounded shadow-sm opacity-90" />
-    </div>
-  </header>
-
-  <!-- Container Utama -->
-  <main class="max-w-4xl mx-auto px-4 py-8 space-y-6">
-
-    <!-- 1. Kad Borang Pendaftaran Penceramah -->
-    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
-      <form id="penceramahForm" onsubmit="handleSubmit(event)" class="space-y-4">
-        
-        <!-- Tarikh Mula & Tarikh Akhir -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">Tarikh Mula</label>
-            <input type="date" id="tarikhMula" required 
-              class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-800 focus:border-blue-800" />
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">Tarikh Akhir</label>
-            <input type="date" id="tarikhAkhir" required 
-              class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-800 focus:border-blue-800" />
-          </div>
-        </div>
-
-        <!-- Pilihan Tempat (Hanya Bukit Katil & Paya Rumput) -->
-        <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1">Tempat</label>
-          <select id="tempat" required 
-            class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-800 focus:border-blue-800">
-            <option value="" disabled selected>-- Pilih Tempat --</option>
-            <option value="BUKIT KATIL">Bukit Katil</option>
-            <option value="PAYA RUMPUT">Paya Rumput</option>
-          </select>
-        </div>
-
-        <!-- Nama & Jawatan -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">Nama</label>
-            <input type="text" id="nama" required 
-              class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-800 focus:border-blue-800" />
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">Jawatan</label>
-            <input type="text" id="jawatan" required 
-              class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-800 focus:border-blue-800" />
-          </div>
-        </div>
-
-        <!-- No Telefon & No Kad Pengenalan -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">No Telefon (Dia/PA)</label>
-            <input type="text" id="noTel" required 
-              class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-800 focus:border-blue-800" />
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">No Kad Pengenalan</label>
-            <input type="text" id="noKP" required placeholder="Cth: 800101-01-1234" 
-              class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-blue-800 focus:border-blue-800 font-mono" />
-          </div>
-        </div>
-
-        <!-- Sedia Ceramah Berapa Tempat -->
-        <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1">Sedia Ceramah Berapa Tempat</label>
-          <input type="text" id="sediaBerapa" placeholder="Cth: 2 Tempat" 
-            class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-800 focus:border-blue-800" />
-        </div>
-
-        <!-- Butang Hantar -->
-        <div class="flex justify-end pt-2">
-          <button type="submit" id="btnHantar" 
-            class="bg-[#1b3864] hover:bg-[#132847] text-white text-xs font-bold px-7 py-2.5 rounded-lg shadow-sm transition active:scale-95">
-            Hantar
-          </button>
-        </div>
-      </form>
-    </div>
-
-    <!-- 2. Kotak Makluman Gambar Kad Pengenalan via WhatsApp -->
-    <div class="bg-[#e9f2fd] border border-[#bfdcfc] rounded-xl p-4 md:p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-3.5">
-        <div class="w-10 h-10 rounded-lg bg-blue-100/70 border border-blue-200 flex items-center justify-center text-blue-600 text-lg shrink-0">
-          <i class="fa-regular fa-image"></i>
-        </div>
-        <div>
-          <h2 class="text-xs font-bold text-slate-900">Hantar Kad Pengenalan</h2>
-          <p class="text-[11px] text-blue-600 mt-0.5">
-            Sila hantar gambar kad pengenalan penceramah melalui WhatsApp untuk pengesahan urus setia.
-          </p>
-        </div>
-      </div>
-      <a href="https://wa.me/60195597066?text=Assalamualaikum%20Urus%20Setia%20PN%20Melaka,%20saya%20ingin%20hantar%20gambar%20kad%20pengenalan%20penceramah" 
-         target="_blank"
-         class="bg-[#1b3864] hover:bg-[#132847] text-white text-[11px] font-semibold px-4 py-2.5 rounded-lg shrink-0 text-center transition shadow-sm">
-        Hantar Gambar via WhatsApp
-      </a>
-    </div>
-
-    <!-- 3. Jadual Rekod Penceramah -->
-    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-      <div class="overflow-x-auto">
-        <table class="w-full text-left border-collapse text-xs">
-          <thead>
-            <tr class="bg-[#dce8f5] text-[#1b3864] font-bold border-b border-blue-100">
-              <th class="py-3.5 px-4 font-bold">Nama</th>
-              <th class="py-3.5 px-4 font-bold">Jawatan</th>
-              <th class="py-3.5 px-4 font-bold">No KP</th>
-              <th class="py-3.5 px-4 font-bold">No Tel</th>
-              <th class="py-3.5 px-4 font-bold">Tempat</th>
-              <th class="py-3.5 px-4 font-bold text-center">Tarikh</th>
-              <th class="py-3.5 px-3 font-bold text-center">Bil.</th>
-              <th class="py-3.5 px-4 font-bold text-center">Tindakan</th>
-            </tr>
-          </thead>
-          <tbody id="penceramahTableBody" class="divide-y divide-slate-100 text-slate-700">
-            <!-- Data diisi oleh JavaScript -->
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-  </main>
-
-  <script>
-    // URL Google Apps Script Web App anda (yang menyambung ke Google Sheets)
+<script>
+    // URL Google Apps Script Web App anda
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwt-i0wrZsMBTcGbmvMCYSfy5MMfS5BoCMo7oEPvLLxBZVdXbatKT2UKHK6x_duNAc/exec";
-
-    // Data awal sepadan dengan tangkap layar anda
-    const sampleData = [
-      {
-        bil: "1",
-        nama: "Muhammad Farid",
-        jawatan: "Naib Ketua Ulamak Kawasan Seremban",
-        ic: "900925035701",
-        tel: "0145701319",
-        tempat: "BUKIT KATIL",
-        tarikh: "2026-07-19\n→\n2026-07-19"
-      },
-      {
-        bil: "1",
-        nama: "Najihatussalehah Ahmad",
-        jawatan: "Ajk PAS PUSAT/ADUN BOTA/KPEN DMPM",
-        ic: "661115085066",
-        tel: "0195597066",
-        tempat: "PAYA RUMPUT",
-        tarikh: "2026-07-19\n→\n2026-07-19"
-      },
-      {
-        bil: "2",
-        nama: "Mohd Hasnizan Bin Harun",
-        jawatan: "Ahli Parlimen Hulu Selangor / Timbalan Pesuruhjaya 3 Selangor",
-        ic: "700605-08-5201",
-        tel: "0196505201",
-        tempat: "BUKIT KATIL",
-        tarikh: "2026-07-27\n→\n2026-07-30"
-      }
-    ];
 
     let speakerList = [];
 
     async function loadData() {
+      const tbody = document.getElementById("penceramahTableBody");
+      tbody.innerHTML = `<tr><td colspan="8" class="text-center py-8 text-slate-400"><i class="fa-solid fa-spinner fa-spin text-blue-800 text-sm mb-1"></i><br>Menyegerak data dari Google Sheet...</td></tr>`;
+
       try {
-        const res = await fetch(SCRIPT_URL);
-        if (!res.ok) throw new Error("Gagal mengambil data");
+        // Parameter timestamp (_=Date.now()) untuk elak cache browser
+        const res = await fetch(`${SCRIPT_URL}?_=${Date.now()}`);
+        if (!res.ok) throw new Error("Gagal menyambung");
         const data = await res.json();
-        speakerList = (data && data.length > 0) ? data : sampleData;
+        
+        // Guna data terus dari Google Sheet tanpa fallback statik
+        speakerList = Array.isArray(data) ? data : [];
       } catch (e) {
-        speakerList = sampleData;
+        console.error("Ralat pangkalan data:", e);
+        speakerList = [];
       }
       renderTable();
     }
 
     function renderTable() {
       const tbody = document.getElementById("penceramahTableBody");
+      
       if (speakerList.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="8" class="text-center py-8 text-slate-400">Tiada rekod penceramah dijumpai.</td></tr>`;
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8" class="text-center py-12 text-slate-400">
+              <i class="fa-regular fa-folder-open text-2xl text-slate-300 mb-2"></i>
+              <p>Pangkalan data kosong. Tiada rekod penceramah dijumpai di Google Sheet.</p>
+            </td>
+          </tr>
+        `;
         return;
       }
 
       tbody.innerHTML = speakerList.map((item, idx) => {
         const cleanTel = (item.tel || "").replace(/[^0-9]/g, '');
-        const dateFormatted = (item.tarikh || "").replace('→', '\n→\n').replace('->', '\n→\n');
+        const dateFormatted = (item.tarikh || "").replace(/→|->/g, '\n→\n');
 
         return `
           <tr class="hover:bg-slate-50 transition">
@@ -229,15 +48,14 @@
             <td class="py-3.5 px-4 text-slate-600 align-top leading-relaxed">${item.jawatan}</td>
             <td class="py-3.5 px-4 font-mono text-slate-700 align-top">${item.ic}</td>
             <td class="py-3.5 px-4 font-mono text-slate-700 align-top">
-              <a href="tel:${cleanTel}" class="hover:underline">${item.tel}</a>
+              <a href="tel:${cleanTel}" class="hover:underline text-blue-900 font-semibold">${item.tel}</a>
             </td>
             <td class="py-3.5 px-4 uppercase font-semibold text-slate-700 align-top">${item.tempat}</td>
             <td class="py-3.5 px-4 text-center font-mono text-[11px] text-slate-600 align-top whitespace-pre-line">${dateFormatted}</td>
             <td class="py-3.5 px-3 text-center text-slate-700 align-top">${item.bil || (idx + 1)}</td>
             <td class="py-3.5 px-4 text-center align-top">
               <div class="flex flex-col items-center gap-0.5">
-                <button onclick="salinMaklumat(${idx})" class="text-blue-500 hover:text-blue-700 font-medium">Edit</button>
-                <button onclick="padamRekod(${idx})" class="text-red-500 hover:text-red-700 font-medium">Padam</button>
+                <button onclick="salinMaklumat(${idx})" class="text-blue-600 hover:text-blue-800 font-medium">Salin</button>
               </div>
             </td>
           </tr>
@@ -247,30 +65,22 @@
 
     function salinMaklumat(index) {
       const s = speakerList[index];
-      const text = `NAMA: ${s.nama}\nNO. K/P: ${s.ic}\nNO. TEL: ${s.tel}\nJAWATAN: ${s.jawatan}\nTEMPAT: ${s.tempat}\nTARIKH: ${s.tarikh.replace(/\n/g, ' ')}`;
+      const text = `NAMA: ${s.nama}\nNO. KAD PENGENALAN: ${s.ic}\nNO. TEL: ${s.tel}\nJAWATAN: ${s.jawatan}\nTEMPAT: ${s.tempat}\nTARIKH: ${s.tarikh.replace(/\n/g, ' ')}`;
       navigator.clipboard.writeText(text);
-      alert(`Maklumat penceramah ${s.nama} telah disalin ke clipboard!`);
-    }
-
-    function padamRekod(index) {
-      if (confirm("Adakah anda pasti ingin memadam rekod ini daripada paparan?")) {
-        speakerList.splice(index, 1);
-        renderTable();
-      }
+      alert(`Maklumat ${s.nama} telah disalin!`);
     }
 
     async function handleSubmit(e) {
       e.preventDefault();
       const btn = document.getElementById("btnHantar");
       btn.disabled = true;
-      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i> Menghantar...`;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i> Menyimpan ke Google Sheet...`;
 
       const tMula = document.getElementById("tarikhMula").value;
       const tAkhir = document.getElementById("tarikhAkhir").value;
-      const tarikhGabung = `${tMula}\n→\n${tAkhir}`;
+      const tarikhGabung = `${tMula} → ${tAkhir}`;
 
       const newSpeaker = {
-        bil: (speakerList.length + 1).toString(),
         nama: document.getElementById("nama").value.trim(),
         jawatan: document.getElementById("jawatan").value.trim(),
         ic: document.getElementById("noKP").value.trim(),
@@ -280,7 +90,6 @@
       };
 
       try {
-        // Hantar simpan ke Google Sheet melalui Google Apps Script
         await fetch(SCRIPT_URL, {
           method: "POST",
           mode: "no-cors",
@@ -288,11 +97,11 @@
           body: JSON.stringify(newSpeaker)
         });
 
-        // Masukkan terus ke senarai jadual di laman web
-        speakerList.unshift(newSpeaker);
-        renderTable();
+        alert("Data berjaya disimpan ke Google Sheet!");
         document.getElementById("penceramahForm").reset();
-        alert("Borang penceramah berjaya dihantar dan direkodkan!");
+        
+        // Muat semula data sebenar dari Google Sheet selepas 1.5 saat
+        setTimeout(loadData, 1500);
       } catch (err) {
         alert("Ralat menghantar borang: " + err.message);
       } finally {
@@ -303,5 +112,3 @@
 
     loadData();
   </script>
-</body>
-</html>
