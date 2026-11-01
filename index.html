@@ -18,13 +18,13 @@
   <header class="pn-header-bg text-white py-6 px-4 border-b-2 border-amber-400 shadow-md">
     <div class="max-w-6xl mx-auto flex items-center justify-between gap-4">
       
-      <!-- Bendera Negeri Melaka (Kiri) -->
+      <!-- Bendera Negeri Melaka Tempatan (Kiri) -->
       <div class="flex items-center shrink-0">
         <div class="bg-white/10 p-1.5 rounded-xl border border-white/20 shadow-sm flex items-center justify-center">
-          <img src="https://en.wikipedia.org/wiki/Flag_of_Malacca#/media/File:Flag_of_Malacca.svg" 
+          <img src="Flag_of_Malacca.svg" 
                alt="Bendera Negeri Melaka" 
                class="h-10 md:h-14 w-auto object-contain rounded shadow-sm" 
-               onerror="this.src='https://flagcdn.com/w80/my.png';" />
+               onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Flag_of_Malacca.svg/640px-Flag_of_Malacca.svg.png';" />
         </div>
       </div>
 
@@ -61,7 +61,7 @@
             Daftar Jadual & Maklumat Penceramah
           </h2>
           <p id="formSubtitle" class="text-xs text-slate-500">
-            Sila lengkapkan maklumat berserta gambar resolusi tinggi (HD) untuk poster dan permit program.
+            Sila lengkapkan maklumat berserta gambar penceramah dan salinan IC bagi kelulusan permit.
           </p>
         </div>
         <button id="cancelEditBtn" onclick="resetFormToNew()" class="hidden text-xs bg-slate-200 hover:bg-slate-300 text-slate-700 px-3.5 py-1.5 rounded-lg transition font-semibold">
@@ -72,6 +72,7 @@
       <form id="penceramahForm" onsubmit="handleSubmit(event)" class="space-y-4">
         <input type="hidden" id="editRowIndex" value="" />
         <input type="hidden" id="existingGambarUrl" value="" />
+        <input type="hidden" id="existingIcUrl" value="" />
 
         <!-- Tarikh Mula & Tarikh Akhir -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -83,19 +84,6 @@
             <label class="block text-xs font-semibold text-slate-700 mb-1">Tarikh Akhir <span class="text-red-500">*</span></label>
             <input type="date" id="tarikhAkhir" required class="w-full bg-slate-50/50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-800" />
           </div>
-        </div>
-
-        <!-- Pilihan Tempat (5 DUN) -->
-        <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1">Tempat / DUN <span class="text-red-500">*</span></label>
-          <select id="tempat" required class="w-full bg-slate-50/50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-800 font-medium">
-            <option value="" disabled selected>-- Pilih Tempat --</option>
-            <option value="BUKIT KATIL">Bukit Katil</option>
-            <option value="PAYA RUMPUT">Paya Rumput</option>
-            <option value="BEMBAN">Bemban</option>
-            <option value="KESIDANG">Kesidang</option>
-            <option value="AYER KEROH">Ayer Keroh</option>
-          </select>
         </div>
 
         <!-- Nama & Jawatan -->
@@ -130,11 +118,11 @@
           </div>
         </div>
 
-        <!-- Sedia Ceramah Berapa Tempat (Checkbox Option) -->
+        <!-- Sedia Ceramah Di DUN (Checkbox Pengganti Dropdown Tempat) -->
         <div>
           <label class="block text-xs font-semibold text-slate-700 mb-1.5">
-            Sedia Ceramah Berapa Tempat 
-            <span class="text-slate-400 font-normal ml-1">(Tandakan semua DUN yang penceramah bersedia untuk hadir)</span>
+            Sedia Ceramah Di DUN <span class="text-red-500">*</span>
+            <span class="text-slate-400 font-normal ml-1">(Pilih satu atau lebih DUN kesediaan penceramah)</span>
           </label>
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs">
             <label class="flex items-center gap-2 cursor-pointer hover:text-blue-900 transition font-medium">
@@ -160,17 +148,33 @@
           </div>
         </div>
 
-        <!-- Muat Naik Gambar Penceramah (HD) -->
-        <div class="bg-blue-50/70 border border-blue-200 rounded-xl p-4">
-          <label class="block text-xs font-bold text-slate-900 mb-1">
-            <i class="fa-solid fa-camera-retro text-[#173059] mr-1.5"></i> Muat Naik Gambar Penceramah (Format HD JPG / PNG)
-          </label>
-          <p class="text-[11px] text-slate-500 mb-2.5">
-            Gambar disimpan secara selamat terus ke Google Drive Urus Setia bagi poster dan rujukan permit.
-          </p>
-          <input type="file" id="fileGambar" accept="image/jpeg,image/png,image/webp" 
-            class="w-full text-xs text-slate-600 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-[#173059] file:text-white hover:file:bg-[#10223f] cursor-pointer" />
-          <div id="fileExistingLabel" class="hidden mt-2 text-[11px] text-emerald-700 font-semibold"></div>
+        <!-- Ruangan Muat Naik Gambar & Kad Pengenalan -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- 1. Muat Naik Gambar Penceramah -->
+          <div class="bg-blue-50/70 border border-blue-200 rounded-xl p-4">
+            <label class="block text-xs font-bold text-slate-900 mb-1">
+              <i class="fa-solid fa-camera text-[#173059] mr-1.5"></i> Gambar Penceramah (Format HD)
+            </label>
+            <p class="text-[11px] text-slate-500 mb-2">
+              Digunakan untuk poster kempen media penerangan.
+            </p>
+            <input type="file" id="fileGambar" accept="image/jpeg,image/png,image/webp" 
+              class="w-full text-xs text-slate-600 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-[#173059] file:text-white hover:file:bg-[#10223f] cursor-pointer" />
+            <div id="fileExistingGambarLabel" class="hidden mt-2 text-[11px] text-emerald-700 font-semibold"></div>
+          </div>
+
+          <!-- 2. Muat Naik Salinan Kad Pengenalan -->
+          <div class="bg-sky-50/70 border border-sky-200 rounded-xl p-4">
+            <label class="block text-xs font-bold text-slate-900 mb-1">
+              <i class="fa-regular fa-id-card text-sky-800 mr-1.5"></i> Salinan Kad Pengenalan (HD / PDF)
+            </label>
+            <p class="text-[11px] text-slate-500 mb-2">
+              Digunakan oleh urus setia untuk urusan permit PDRM.
+            </p>
+            <input type="file" id="fileIC" accept="image/jpeg,image/png,image/webp,.pdf" 
+              class="w-full text-xs text-slate-600 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-sky-800 file:text-white hover:file:bg-sky-900 cursor-pointer" />
+            <div id="fileExistingICLabel" class="hidden mt-2 text-[11px] text-emerald-700 font-semibold"></div>
+          </div>
         </div>
 
         <div class="flex justify-end gap-2 pt-2">
@@ -192,10 +196,10 @@
               <th class="py-3.5 px-4 font-bold">No KP</th>
               <th class="py-3.5 px-4 font-bold">Tel Penceramah</th>
               <th class="py-3.5 px-4 font-bold">Tel PA</th>
-              <th class="py-3.5 px-4 font-bold">Tempat</th>
               <th class="py-3.5 px-4 font-bold text-center">Tarikh</th>
-              <th class="py-3.5 px-4 font-bold text-center">Kapasiti Tempat</th>
-              <th class="py-3.5 px-4 font-bold text-center">Gambar HD</th>
+              <th class="py-3.5 px-4 font-bold">Sedia Di DUN</th>
+              <th class="py-3.5 px-3 font-bold text-center">Gambar HD</th>
+              <th class="py-3.5 px-3 font-bold text-center">Salinan IC</th>
               <th class="py-3.5 px-4 font-bold text-center">Tindakan</th>
             </tr>
           </thead>
@@ -248,11 +252,21 @@
         const cleanPA = (item.telPA || "").replace(/[^0-9]/g, '');
         const dateFormatted = (item.tarikh || "").replace(/→|->/g, '\n→\n');
 
-        let gambarElement = `<span class="text-slate-400">Tiada Gambar</span>`;
+        // Pautan Gambar HD
+        let gambarBtn = `<span class="text-slate-400 text-[11px]">Tiada</span>`;
         if (item.gambarUrl && item.gambarUrl.startsWith('http')) {
-          gambarElement = `
-            <a href="${item.gambarUrl}" target="_blank" class="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-800 border border-emerald-300 px-2.5 py-1 rounded-lg text-[11px] font-bold hover:bg-emerald-100 transition shadow-sm">
-              <i class="fa-solid fa-image text-emerald-600"></i> Gambar HD
+          gambarBtn = `
+            <a href="${item.gambarUrl}" target="_blank" class="inline-flex items-center gap-1 bg-emerald-50 text-emerald-800 border border-emerald-300 px-2 py-0.5 rounded text-[11px] font-bold hover:bg-emerald-100 transition shadow-sm">
+              <i class="fa-solid fa-image text-emerald-600"></i> Lihat
+            </a>`;
+        }
+
+        // Pautan Salinan IC
+        let icBtn = `<span class="text-slate-400 text-[11px]">Tiada</span>`;
+        if (item.icUrl && item.icUrl.startsWith('http')) {
+          icBtn = `
+            <a href="${item.icUrl}" target="_blank" class="inline-flex items-center gap-1 bg-sky-50 text-sky-800 border border-sky-300 px-2 py-0.5 rounded text-[11px] font-bold hover:bg-sky-100 transition shadow-sm">
+              <i class="fa-regular fa-id-card text-sky-600"></i> Lihat
             </a>`;
         }
 
@@ -267,10 +281,10 @@
             <td class="py-3.5 px-4 font-mono text-slate-600 align-top">
               ${cleanPA ? `<a href="tel:${cleanPA}" class="hover:underline text-slate-700">${item.telPA}</a>` : '-'}
             </td>
-            <td class="py-3.5 px-4 uppercase font-bold text-slate-800 align-top">${item.tempat}</td>
             <td class="py-3.5 px-4 text-center font-mono text-[11px] text-slate-600 align-top whitespace-pre-line">${dateFormatted}</td>
-            <td class="py-3.5 px-4 text-center text-slate-700 align-top text-[11px] font-medium bg-slate-50/50 leading-relaxed">${item.sediaBerapa || '-'}</td>
-            <td class="py-3.5 px-4 text-center align-top">${gambarElement}</td>
+            <td class="py-3.5 px-4 text-slate-700 align-top text-[11px] font-medium leading-relaxed">${item.sediaTempat || '-'}</td>
+            <td class="py-3.5 px-3 text-center align-top">${gambarBtn}</td>
+            <td class="py-3.5 px-3 text-center align-top">${icBtn}</td>
             <td class="py-3.5 px-4 text-center align-top">
               <div class="flex items-center justify-center gap-2">
                 <button onclick="editMaklumat(${idx})" class="text-blue-700 hover:text-blue-900 font-bold">Edit</button>
@@ -291,11 +305,11 @@
       document.getElementById("noKP").value = s.ic;
       document.getElementById("noTelPenceramah").value = s.telPenceramah;
       document.getElementById("noTelPA").value = (s.telPA === '-' ? '' : s.telPA);
-      document.getElementById("tempat").value = s.tempat;
       document.getElementById("existingGambarUrl").value = s.gambarUrl || "";
+      document.getElementById("existingIcUrl").value = s.icUrl || "";
 
-      // Tandakan checkbox mengikut teks sedia ada
-      const sediaList = (s.sediaBerapa || "").split(',').map(x => x.trim());
+      // Tandakan checkbox DUN sedia ada
+      const sediaList = (s.sediaTempat || "").split(',').map(x => x.trim());
       document.querySelectorAll('input[name="sediaTempat"]').forEach(cb => {
         cb.checked = sediaList.includes(cb.value);
       });
@@ -306,12 +320,21 @@
         document.getElementById("tarikhAkhir").value = parts[1];
       }
 
-      const fileLabel = document.getElementById("fileExistingLabel");
+      // Label Fail Sedia Ada
+      const gLabel = document.getElementById("fileExistingGambarLabel");
       if (s.gambarUrl && s.gambarUrl.startsWith('http')) {
-        fileLabel.innerHTML = `<i class="fa-solid fa-check text-emerald-600 mr-1"></i> Gambar sedia ada: <a href="${s.gambarUrl}" target="_blank" class="underline font-bold">Lihat Fail HD Sedia Ada</a> (Pilih fail baru hanya jika ingin menggantikannya).`;
-        fileLabel.classList.remove("hidden");
+        gLabel.innerHTML = `<i class="fa-solid fa-check text-emerald-600 mr-1"></i> <a href="${s.gambarUrl}" target="_blank" class="underline font-bold">Gambar HD Sedia Ada</a> (Pilih fail baru jika mahu ganti).`;
+        gLabel.classList.remove("hidden");
       } else {
-        fileLabel.classList.add("hidden");
+        gLabel.classList.add("hidden");
+      }
+
+      const icLabel = document.getElementById("fileExistingICLabel");
+      if (s.icUrl && s.icUrl.startsWith('http')) {
+        icLabel.innerHTML = `<i class="fa-solid fa-check text-sky-600 mr-1"></i> <a href="${s.icUrl}" target="_blank" class="underline font-bold">Salinan IC Sedia Ada</a> (Pilih fail baru jika mahu ganti).`;
+        icLabel.classList.remove("hidden");
+      } else {
+        icLabel.classList.add("hidden");
       }
 
       document.getElementById("formTitle").innerText = `Kemaskini Rekod: ${s.nama}`;
@@ -327,7 +350,9 @@
       document.getElementById("penceramahForm").reset();
       document.getElementById("editRowIndex").value = "";
       document.getElementById("existingGambarUrl").value = "";
-      document.getElementById("fileExistingLabel").classList.add("hidden");
+      document.getElementById("existingIcUrl").value = "";
+      document.getElementById("fileExistingGambarLabel").classList.add("hidden");
+      document.getElementById("fileExistingICLabel").classList.add("hidden");
 
       document.querySelectorAll('input[name="sediaTempat"]').forEach(cb => cb.checked = false);
 
@@ -340,7 +365,7 @@
 
     function salinMaklumat(index) {
       const s = speakerList[index];
-      const text = `NAMA: ${s.nama}\nNO. KAD PENGENALAN: ${s.ic}\nNO. TEL PENCERAMAH: ${s.telPenceramah}\nNO. TEL PA: ${s.telPA || '-'}\nJAWATAN: ${s.jawatan}\nTEMPAT: ${s.tempat}\nTARIKH: ${s.tarikh.replace(/\n/g, ' ')}\nKAPASITI TEMPAT: ${s.sediaBerapa || '-'}\nGAMBAR PENCERAMAH (HD): ${s.gambarUrl || 'Tiada'}`;
+      const text = `NAMA: ${s.nama}\nNO. KAD PENGENALAN: ${s.ic}\nNO. TEL PENCERAMAH: ${s.telPenceramah}\nNO. TEL PA: ${s.telPA || '-'}\nJAWATAN: ${s.jawatan}\nTARIKH: ${s.tarikh.replace(/\n/g, ' ')}\nSEDIA CERAMAH DI DUN: ${s.sediaTempat || '-'}\nLINK GAMBAR HD: ${s.gambarUrl || 'Tiada'}\nLINK SALINAN IC: ${s.icUrl || 'Tiada'}`;
       navigator.clipboard.writeText(text);
       alert(`Maklumat rasmi ${s.nama} telah disalin!`);
     }
@@ -360,32 +385,39 @@
     async function handleSubmit(e) {
       e.preventDefault();
 
-      // Kumpul semua pilihan checkbox yang ditanda
       const checkedBoxes = Array.from(document.querySelectorAll('input[name="sediaTempat"]:checked')).map(cb => cb.value);
-      const sediaBerapaVal = checkedBoxes.length > 0 ? checkedBoxes.join(', ') : '-';
+      if (checkedBoxes.length === 0) {
+        alert("Sila pilih sekurang-kurangnya satu DUN di bahagian 'Sedia Ceramah Di DUN'!");
+        return;
+      }
+      const sediaTempatVal = checkedBoxes.join(', ');
 
       const btn = document.getElementById("btnHantar");
       btn.disabled = true;
-      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i> Memproses...`;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i> Memproses & Menyimpan Fail...`;
 
       const tMula = document.getElementById("tarikhMula").value;
       const tAkhir = document.getElementById("tarikhAkhir").value;
       const tarikhGabung = `${tMula} → ${tAkhir}`;
 
-      const fileInput = document.getElementById("fileGambar");
-      let fileBase64 = null;
-      let fileName = null;
-      let fileType = null;
+      // 1. Baca Gambar Penceramah (jika dimuat naik)
+      const fileGambarInput = document.getElementById("fileGambar");
+      let gambarBase64 = null, gambarName = null, gambarType = null;
+      if (fileGambarInput.files.length > 0) {
+        const fG = fileGambarInput.files[0];
+        gambarName = fG.name;
+        gambarType = fG.type;
+        try { gambarBase64 = await readFileAsBase64(fG); } catch (e) { console.warn(e); }
+      }
 
-      if (fileInput.files.length > 0) {
-        const file = fileInput.files[0];
-        fileName = file.name;
-        fileType = file.type;
-        try {
-          fileBase64 = await readFileAsBase64(file);
-        } catch (fErr) {
-          console.warn("Gagal membaca fail:", fErr);
-        }
+      // 2. Baca Fail Kad Pengenalan (jika dimuat naik)
+      const fileICInput = document.getElementById("fileIC");
+      let icBase64 = null, icName = null, icType = null;
+      if (fileICInput.files.length > 0) {
+        const fI = fileICInput.files[0];
+        icName = fI.name;
+        icType = fI.type;
+        try { icBase64 = await readFileAsBase64(fI); } catch (e) { console.warn(e); }
       }
 
       const payload = {
@@ -395,13 +427,16 @@
         ic: document.getElementById("noKP").value.trim(),
         telPenceramah: document.getElementById("noTelPenceramah").value.trim(),
         telPA: document.getElementById("noTelPA").value.trim(),
-        tempat: document.getElementById("tempat").value,
         tarikh: tarikhGabung,
-        sediaBerapa: sediaBerapaVal,
+        sediaTempat: sediaTempatVal,
         existingGambarUrl: document.getElementById("existingGambarUrl").value,
-        fileBase64: fileBase64,
-        fileName: fileName,
-        fileType: fileType
+        existingIcUrl: document.getElementById("existingIcUrl").value,
+        gambarBase64: gambarBase64,
+        gambarName: gambarName,
+        gambarType: gambarType,
+        icBase64: icBase64,
+        icName: icName,
+        icType: icType
       };
 
       try {
@@ -412,9 +447,9 @@
           body: JSON.stringify(payload)
         });
 
-        alert(payload.rowIndex ? "Rekod penceramah berjaya dikemaskini!" : "Penceramah berjaya didaftarkan ke pangkalan data!");
+        alert(payload.rowIndex ? "Maklumat penceramah berjaya dikemaskini!" : "Penceramah dan fail dokumen berjaya didaftarkan!");
         resetFormToNew();
-        setTimeout(loadData, 1800);
+        setTimeout(loadData, 2000);
       } catch (err) {
         alert("Ralat memproses: " + err.message);
       } finally {
