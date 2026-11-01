@@ -60,8 +60,8 @@
           <h2 id="formTitle" class="text-sm md:text-base font-bold text-slate-900">
             Daftar Jadual & Maklumat Penceramah
           </h2>
-          <p id="formSubtitle" class="text-xs text-slate-500">
-            Sila lengkapkan maklumat berserta gambar penceramah dan salinan IC bagi kelulusan permit.
+          <p id="formSubtitle" class="text-xs text-slate-500 leading-relaxed mt-0.5">
+            Sila isi maklumat dengan lengkap dan tepat (beserta IC) untuk tujuan kelulusan permit polis serta muat naik gambar penceramah untuk tujuan penghasilan poster.
           </p>
         </div>
         <button id="cancelEditBtn" onclick="resetFormToNew()" class="hidden text-xs bg-slate-200 hover:bg-slate-300 text-slate-700 px-3.5 py-1.5 rounded-lg transition font-semibold">
@@ -118,7 +118,7 @@
           </div>
         </div>
 
-        <!-- Sedia Ceramah Di DUN (Checkbox Pengganti Dropdown Tempat) -->
+        <!-- Sedia Ceramah Di DUN (Pilihan Checkbox dengan label 'Kerusi Calon') -->
         <div>
           <label class="block text-xs font-semibold text-slate-700 mb-1.5">
             Sedia Ceramah Di DUN <span class="text-red-500">*</span>
@@ -126,24 +126,24 @@
           </label>
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs">
             <label class="flex items-center gap-2 cursor-pointer hover:text-blue-900 transition font-medium">
-              <input type="checkbox" name="sediaTempat" value="Bukit Katil (Wakil PAS)" class="w-4 h-4 text-blue-900 rounded border-slate-300 focus:ring-blue-800" />
-              <span>Bukit Katil (Wakil PAS)</span>
+              <input type="checkbox" name="sediaTempat" value="Bukit Katil (Kerusi Calon PAS)" class="w-4 h-4 text-blue-900 rounded border-slate-300 focus:ring-blue-800" />
+              <span>Bukit Katil (Kerusi Calon PAS)</span>
             </label>
             <label class="flex items-center gap-2 cursor-pointer hover:text-blue-900 transition font-medium">
-              <input type="checkbox" name="sediaTempat" value="Paya Rumput (Wakil PAS)" class="w-4 h-4 text-blue-900 rounded border-slate-300 focus:ring-blue-800" />
-              <span>Paya Rumput (Wakil PAS)</span>
+              <input type="checkbox" name="sediaTempat" value="Paya Rumput (Kerusi Calon PAS)" class="w-4 h-4 text-blue-900 rounded border-slate-300 focus:ring-blue-800" />
+              <span>Paya Rumput (Kerusi Calon PAS)</span>
             </label>
             <label class="flex items-center gap-2 cursor-pointer hover:text-blue-900 transition font-medium">
-              <input type="checkbox" name="sediaTempat" value="Bemban (Wakil Wawasan)" class="w-4 h-4 text-blue-900 rounded border-slate-300 focus:ring-blue-800" />
-              <span>Bemban (Wakil Wawasan)</span>
+              <input type="checkbox" name="sediaTempat" value="Bemban (Kerusi Calon Wawasan)" class="w-4 h-4 text-blue-900 rounded border-slate-300 focus:ring-blue-800" />
+              <span>Bemban (Kerusi Calon Wawasan)</span>
             </label>
             <label class="flex items-center gap-2 cursor-pointer hover:text-blue-900 transition font-medium">
-              <input type="checkbox" name="sediaTempat" value="Kesidang (Wakil Wawasan)" class="w-4 h-4 text-blue-900 rounded border-slate-300 focus:ring-blue-800" />
-              <span>Kesidang (Wakil Wawasan)</span>
+              <input type="checkbox" name="sediaTempat" value="Kesidang (Kerusi Calon Wawasan)" class="w-4 h-4 text-blue-900 rounded border-slate-300 focus:ring-blue-800" />
+              <span>Kesidang (Kerusi Calon Wawasan)</span>
             </label>
             <label class="flex items-center gap-2 cursor-pointer hover:text-blue-900 transition font-medium">
-              <input type="checkbox" name="sediaTempat" value="Ayer Keroh (Wakil Gerakan)" class="w-4 h-4 text-blue-900 rounded border-slate-300 focus:ring-blue-800" />
-              <span>Ayer Keroh (Wakil Gerakan)</span>
+              <input type="checkbox" name="sediaTempat" value="Ayer Keroh (Kerusi Calon Gerakan)" class="w-4 h-4 text-blue-900 rounded border-slate-300 focus:ring-blue-800" />
+              <span>Ayer Keroh (Kerusi Calon Gerakan)</span>
             </label>
           </div>
         </div>
@@ -156,7 +156,7 @@
               <i class="fa-solid fa-camera text-[#173059] mr-1.5"></i> Gambar Penceramah (Format HD)
             </label>
             <p class="text-[11px] text-slate-500 mb-2">
-              Digunakan untuk poster kempen media penerangan.
+              Digunakan untuk tujuan penghasilan poster kempen.
             </p>
             <input type="file" id="fileGambar" accept="image/jpeg,image/png,image/webp" 
               class="w-full text-xs text-slate-600 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-[#173059] file:text-white hover:file:bg-[#10223f] cursor-pointer" />
@@ -169,7 +169,7 @@
               <i class="fa-regular fa-id-card text-sky-800 mr-1.5"></i> Salinan Kad Pengenalan (HD / PDF)
             </label>
             <p class="text-[11px] text-slate-500 mb-2">
-              Digunakan oleh urus setia untuk urusan permit PDRM.
+              Digunakan untuk tujuan permohonan permit polis.
             </p>
             <input type="file" id="fileIC" accept="image/jpeg,image/png,image/webp,.pdf" 
               class="w-full text-xs text-slate-600 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-sky-800 file:text-white hover:file:bg-sky-900 cursor-pointer" />
@@ -252,7 +252,6 @@
         const cleanPA = (item.telPA || "").replace(/[^0-9]/g, '');
         const dateFormatted = (item.tarikh || "").replace(/→|->/g, '\n→\n');
 
-        // Pautan Gambar HD
         let gambarBtn = `<span class="text-slate-400 text-[11px]">Tiada</span>`;
         if (item.gambarUrl && item.gambarUrl.startsWith('http')) {
           gambarBtn = `
@@ -261,7 +260,6 @@
             </a>`;
         }
 
-        // Pautan Salinan IC
         let icBtn = `<span class="text-slate-400 text-[11px]">Tiada</span>`;
         if (item.icUrl && item.icUrl.startsWith('http')) {
           icBtn = `
@@ -320,7 +318,6 @@
         document.getElementById("tarikhAkhir").value = parts[1];
       }
 
-      // Label Fail Sedia Ada
       const gLabel = document.getElementById("fileExistingGambarLabel");
       if (s.gambarUrl && s.gambarUrl.startsWith('http')) {
         gLabel.innerHTML = `<i class="fa-solid fa-check text-emerald-600 mr-1"></i> <a href="${s.gambarUrl}" target="_blank" class="underline font-bold">Gambar HD Sedia Ada</a> (Pilih fail baru jika mahu ganti).`;
@@ -357,7 +354,7 @@
       document.querySelectorAll('input[name="sediaTempat"]').forEach(cb => cb.checked = false);
 
       document.getElementById("formTitle").innerText = "Daftar Jadual & Maklumat Penceramah";
-      document.getElementById("formSubtitle").innerText = "Sila lengkapkan maklumat bagi tujuan permohonan permit polis dan penyusunan DUN.";
+      document.getElementById("formSubtitle").innerText = "Sila isi maklumat dengan lengkap dan tepat (beserta IC) untuk tujuan kelulusan permit polis serta muat naik gambar penceramah untuk tujuan penghasilan poster.";
       document.getElementById("btnHantar").innerText = "Hantar";
       document.getElementById("btnHantar").className = "bg-[#173059] hover:bg-[#0f213d] text-white text-xs font-bold px-8 py-2.5 rounded-xl shadow transition active:scale-95";
       document.getElementById("cancelEditBtn").classList.add("hidden");
@@ -400,7 +397,6 @@
       const tAkhir = document.getElementById("tarikhAkhir").value;
       const tarikhGabung = `${tMula} → ${tAkhir}`;
 
-      // 1. Baca Gambar Penceramah (jika dimuat naik)
       const fileGambarInput = document.getElementById("fileGambar");
       let gambarBase64 = null, gambarName = null, gambarType = null;
       if (fileGambarInput.files.length > 0) {
@@ -410,7 +406,6 @@
         try { gambarBase64 = await readFileAsBase64(fG); } catch (e) { console.warn(e); }
       }
 
-      // 2. Baca Fail Kad Pengenalan (jika dimuat naik)
       const fileICInput = document.getElementById("fileIC");
       let icBase64 = null, icName = null, icType = null;
       if (fileICInput.files.length > 0) {
