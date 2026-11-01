@@ -3,67 +3,91 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Borang Penceramah PN PRN Melaka 2026</title>
+  <title>Borang Penceramah Perikatan Nasional - PRN Melaka ke-16</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    .pn-header-bg {
+      background: linear-gradient(135deg, #0b1a33 0%, #173059 55%, #0b1a33 100%);
+    }
+  </style>
 </head>
-<body class="bg-slate-100 text-slate-800 font-sans antialiased pb-20">
+<body class="bg-[#f1f5f9] text-slate-800 font-sans antialiased pb-24">
 
   <!-- Header Banner -->
-  <header class="bg-[#173059] text-white py-6 px-4 shadow-sm">
-    <div class="max-w-6xl mx-auto flex items-center justify-between">
-      <img src="https://flagcdn.com/w80/my.png" alt="Bendera Malaysia" class="w-12 h-8 md:w-16 md:h-10 object-cover rounded shadow-sm opacity-90" />
-      <div class="text-center px-2">
-        <h1 class="text-lg md:text-2xl font-bold tracking-tight text-white uppercase">
-          Borang Penceramah PN PRN Melaka 2026
+  <header class="pn-header-bg text-white py-6 px-4 border-b-2 border-amber-400 shadow-md">
+    <div class="max-w-6xl mx-auto flex items-center justify-between gap-4">
+      
+      <!-- Bendera Negeri Melaka (Kiri) -->
+      <div class="flex items-center shrink-0">
+        <div class="bg-white/10 p-1.5 rounded-xl border border-white/20 shadow-sm flex items-center justify-center">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Flag_of_Malacca.svg/320px-Flag_of_Malacca.svg.png" 
+               alt="Bendera Negeri Melaka" 
+               class="h-10 md:h-14 w-auto object-cover rounded shadow-sm" />
+        </div>
+      </div>
+
+      <!-- Tajuk Utama Dua Baris (Tengah) -->
+      <div class="text-center px-2 flex-1">
+        <h1 class="text-lg md:text-2xl font-black tracking-tight text-white uppercase drop-shadow-sm">
+          Borang Penceramah Perikatan Nasional
         </h1>
-        <p class="text-xs md:text-sm text-sky-300 font-medium mt-1">
-          Perikatan Nasional — Melaka (DUN Bukit Katil & Paya Rumput)
+        <p class="text-sm md:text-base text-amber-400 font-extrabold tracking-wide mt-1 uppercase">
+          PRN Melaka ke- 16
         </p>
       </div>
-      <img src="https://flagcdn.com/w80/my.png" alt="Bendera Malaysia" class="w-12 h-8 md:w-16 md:h-10 object-cover rounded shadow-sm opacity-90" />
+
+      <!-- Logo Muafakat Melaka (Kanan) -->
+      <div class="flex items-center shrink-0">
+        <div class="bg-white p-1 rounded-xl shadow-md flex items-center justify-center border border-white/40">
+          <img src="Logo Muafakat Melaka.png" 
+               alt="Logo Muafakat Melaka" 
+               class="h-11 md:h-16 w-auto object-contain" 
+               onerror="this.onerror=null; this.src='logo-muafakat-melaka.png';" />
+        </div>
+      </div>
+
     </div>
   </header>
 
   <main class="max-w-6xl mx-auto px-4 py-8 space-y-6">
 
     <!-- 1. Borang Pendaftaran / Kemaskini Penceramah -->
-    <div id="formContainer" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8 transition">
-      <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
+    <div id="formContainer" class="bg-white rounded-2xl shadow-sm border border-slate-200/90 p-6 md:p-8 transition">
+      <div class="flex items-center justify-between pb-3 mb-5 border-b border-slate-100">
         <div>
           <h2 id="formTitle" class="text-sm md:text-base font-bold text-slate-900">
             Daftar Jadual & Maklumat Penceramah
           </h2>
           <p id="formSubtitle" class="text-xs text-slate-500">
-            Sila lengkapkan maklumat bagi tujuan permohonan permit polis dan penyusunan DUN.
+            Sila lengkapkan maklumat berserta gambar resolusi tinggi (HD) untuk poster dan permit program.
           </p>
         </div>
-        <button id="cancelEditBtn" onclick="resetFormToNew()" class="hidden text-xs bg-slate-200 hover:bg-slate-300 text-slate-700 px-3 py-1.5 rounded-lg transition font-medium">
-          <i class="fa-solid fa-xmark mr-1"></i> Batal Edit
+        <button id="cancelEditBtn" onclick="resetFormToNew()" class="hidden text-xs bg-slate-200 hover:bg-slate-300 text-slate-700 px-3.5 py-1.5 rounded-lg transition font-semibold">
+          <i class="fa-solid fa-xmark mr-1"></i> Batal Kemaskini
         </button>
       </div>
 
       <form id="penceramahForm" onsubmit="handleSubmit(event)" class="space-y-4">
-        <!-- Input Tersembunyi untuk Mode Edit & URL Gambar Sedia Ada -->
         <input type="hidden" id="editRowIndex" value="" />
-        <input type="hidden" id="existingFileUrl" value="" />
+        <input type="hidden" id="existingGambarUrl" value="" />
 
         <!-- Tarikh Mula & Tarikh Akhir -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">Tarikh Mula</label>
-            <input type="date" id="tarikhMula" required class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-800 focus:border-blue-800" />
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Tarikh Mula <span class="text-red-500">*</span></label>
+            <input type="date" id="tarikhMula" required class="w-full bg-slate-50/50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-800" />
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">Tarikh Akhir</label>
-            <input type="date" id="tarikhAkhir" required class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-800 focus:border-blue-800" />
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Tarikh Akhir <span class="text-red-500">*</span></label>
+            <input type="date" id="tarikhAkhir" required class="w-full bg-slate-50/50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-800" />
           </div>
         </div>
 
-        <!-- Pilihan Tempat -->
+        <!-- Pilihan Tempat (Hanya Bukit Katil & Paya Rumput) -->
         <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1">Tempat</label>
-          <select id="tempat" required class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-800 focus:border-blue-800">
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Tempat / DUN <span class="text-red-500">*</span></label>
+          <select id="tempat" required class="w-full bg-slate-50/50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-800 font-medium">
             <option value="" disabled selected>-- Pilih Tempat --</option>
             <option value="BUKIT KATIL">Bukit Katil</option>
             <option value="PAYA RUMPUT">Paya Rumput</option>
@@ -73,32 +97,32 @@
         <!-- Nama & Jawatan -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">Nama Penuh Penceramah</label>
-            <input type="text" id="nama" required placeholder="Contoh: Muhammad Farid" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-800 focus:border-blue-800" />
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Nama Penuh Penceramah <span class="text-red-500">*</span></label>
+            <input type="text" id="nama" required placeholder="Contoh: Ustaz Muhammad Farid" class="w-full bg-slate-50/50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-800" />
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">Jawatan / Jawatan Politik</label>
-            <input type="text" id="jawatan" required placeholder="Contoh: Naib Ketua Ulamak Kawasan" class="w-full bg-slate-300/30 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-800 focus:border-blue-800" />
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Jawatan / Parti / NGO <span class="text-red-500">*</span></label>
+            <input type="text" id="jawatan" required placeholder="Contoh: Naib Ketua Ulamak Kawasan" class="w-full bg-slate-50/50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-800" />
           </div>
         </div>
 
-        <!-- No Telefon Penceramah, No Telefon PA & No Kad Pengenalan -->
+        <!-- No Telefon Penceramah, No Telefon PA, No Kad Pengenalan -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1">
               No Telefon Penceramah <span class="text-red-500">*</span>
             </label>
-            <input type="text" id="noTelPenceramah" required placeholder="Contoh: 0145701319" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-800 focus:border-blue-800 font-mono" />
+            <input type="text" id="noTelPenceramah" required placeholder="Contoh: 0145701319" class="w-full bg-slate-50/50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-800 font-mono" />
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1">
               No Telefon PA <span class="text-slate-400 font-normal">(Pilihan)</span>
             </label>
-            <input type="text" id="noTelPA" placeholder="Contoh: 0191234567" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-800 focus:border-blue-800 font-mono" />
+            <input type="text" id="noTelPA" placeholder="Contoh: 0195597066" class="w-full bg-slate-50/50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-800 font-mono" />
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1">No Kad Pengenalan <span class="text-red-500">*</span></label>
-            <input type="text" id="noKP" required placeholder="Cth: 800101-01-1234" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-blue-800 focus:border-blue-800 font-mono" />
+            <input type="text" id="noKP" required placeholder="Cth: 900925035701" class="w-full bg-slate-50/50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-800 font-mono" />
           </div>
         </div>
 
@@ -108,28 +132,28 @@
             Sedia Ceramah Berapa Tempat
             <span class="text-slate-400 font-normal ml-1">(Kesediaan penceramah untuk berpidato di 1 atau kedua-dua DUN)</span>
           </label>
-          <select id="sediaBerapa" required class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-800 focus:border-blue-800">
+          <select id="sediaBerapa" required class="w-full bg-slate-50/50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-800 font-medium">
             <option value="1 Tempat Sahaja">1 Tempat Sahaja</option>
             <option value="2 Tempat (Bukit Katil & Paya Rumput)">2 Tempat (Bukit Katil & Paya Rumput)</option>
             <option value="Fleksibel / Ikut Susunan Urus Setia">Fleksibel / Ikut Susunan Urus Setia</option>
           </select>
         </div>
 
-        <!-- Muat Naik Kad Pengenalan (HD Format) -->
-        <div class="bg-blue-50/60 border border-blue-200/80 rounded-xl p-4">
-          <label class="block text-xs font-bold text-slate-800 mb-1">
-            <i class="fa-regular fa-id-card text-blue-700 mr-1.5"></i> Muat Naik Salinan Kad Pengenalan (Format HD / PDF)
+        <!-- Muat Naik Gambar Penceramah (HD) -->
+        <div class="bg-blue-50/70 border border-blue-200 rounded-xl p-4">
+          <label class="block text-xs font-bold text-slate-900 mb-1">
+            <i class="fa-solid fa-camera-retro text-[#173059] mr-1.5"></i> Muat Naik Gambar Penceramah (Format HD JPG / PNG)
           </label>
-          <p class="text-[11px] text-slate-500 mb-2">
-            Fail akan disimpan terus ke Google Drive rasmi bagi tujuan pengesahan permit PDRM.
+          <p class="text-[11px] text-slate-500 mb-2.5">
+            Gambar disimpan secara selamat terus ke Google Drive Urus Setia bagi poster dan rujukan permit.
           </p>
-          <input type="file" id="fileKP" accept="image/*,.pdf" 
-            class="w-full text-xs text-slate-600 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-[#173059] file:text-white hover:file:bg-[#112444] cursor-pointer" />
-          <div id="fileExistingLabel" class="hidden mt-2 text-[11px] text-emerald-700 font-medium"></div>
+          <input type="file" id="fileGambar" accept="image/jpeg,image/png,image/webp" 
+            class="w-full text-xs text-slate-600 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-[#173059] file:text-white hover:file:bg-[#10223f] cursor-pointer" />
+          <div id="fileExistingLabel" class="hidden mt-2 text-[11px] text-emerald-700 font-semibold"></div>
         </div>
 
         <div class="flex justify-end gap-2 pt-2">
-          <button type="submit" id="btnHantar" class="bg-[#1b3864] hover:bg-[#132847] text-white text-xs font-bold px-7 py-2.5 rounded-lg shadow-sm transition active:scale-95">
+          <button type="submit" id="btnHantar" class="bg-[#173059] hover:bg-[#0f213d] text-white text-xs font-bold px-8 py-2.5 rounded-xl shadow transition active:scale-95">
             Hantar
           </button>
         </div>
@@ -137,11 +161,11 @@
     </div>
 
     <!-- 2. Jadual Rekod Penceramah -->
-    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
       <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse text-xs">
           <thead>
-            <tr class="bg-[#dce8f5] text-[#1b3864] font-bold border-b border-blue-100">
+            <tr class="bg-[#dce8f5] text-[#173059] font-bold border-b border-blue-100">
               <th class="py-3.5 px-4 font-bold">Nama</th>
               <th class="py-3.5 px-4 font-bold">Jawatan</th>
               <th class="py-3.5 px-4 font-bold">No KP</th>
@@ -150,12 +174,12 @@
               <th class="py-3.5 px-4 font-bold">Tempat</th>
               <th class="py-3.5 px-4 font-bold text-center">Tarikh</th>
               <th class="py-3.5 px-4 font-bold text-center">Kapasiti Tempat</th>
-              <th class="py-3.5 px-4 font-bold text-center">Salinan KP</th>
+              <th class="py-3.5 px-4 font-bold text-center">Gambar HD</th>
               <th class="py-3.5 px-4 font-bold text-center">Tindakan</th>
             </tr>
           </thead>
           <tbody id="penceramahTableBody" class="divide-y divide-slate-100 text-slate-700">
-            <!-- Data dimasukkan oleh JavaScript -->
+            <!-- Data dipaparkan secara automatik oleh JavaScript -->
           </tbody>
         </table>
       </div>
@@ -169,7 +193,7 @@
 
     async function loadData() {
       const tbody = document.getElementById("penceramahTableBody");
-      tbody.innerHTML = `<tr><td colspan="10" class="text-center py-8 text-slate-400"><i class="fa-solid fa-spinner fa-spin text-blue-800 text-sm mb-1"></i><br>Menyegerak data dari Google Sheet...</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="10" class="text-center py-8 text-slate-400"><i class="fa-solid fa-spinner fa-spin text-blue-900 text-sm mb-1"></i><br>Menyegerak rekod dari Google Sheet...</td></tr>`;
 
       try {
         const res = await fetch(`${SCRIPT_URL}?_=${Date.now()}`);
@@ -177,7 +201,7 @@
         const data = await res.json();
         speakerList = Array.isArray(data) ? data : [];
       } catch (e) {
-        console.error("Ralat memuatkan data:", e);
+        console.error("Ralat pangkalan data:", e);
         speakerList = [];
       }
       renderTable();
@@ -203,18 +227,17 @@
         const cleanPA = (item.telPA || "").replace(/[^0-9]/g, '');
         const dateFormatted = (item.tarikh || "").replace(/→|->/g, '\n→\n');
 
-        // Status / Link Kad Pengenalan
-        let kpElement = `<span class="text-slate-400">Tiada</span>`;
-        if (item.icStatus && item.icStatus.startsWith('http')) {
-          kpElement = `
-            <a href="${item.icStatus}" target="_blank" class="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded text-[11px] font-semibold hover:bg-emerald-100">
-              <i class="fa-regular fa-file-image"></i> Lihat HD
+        let gambarElement = `<span class="text-slate-400">Tiada Gambar</span>`;
+        if (item.gambarUrl && item.gambarUrl.startsWith('http')) {
+          gambarElement = `
+            <a href="${item.gambarUrl}" target="_blank" class="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-800 border border-emerald-300 px-2.5 py-1 rounded-lg text-[11px] font-bold hover:bg-emerald-100 transition shadow-sm">
+              <i class="fa-solid fa-image text-emerald-600"></i> Gambar HD
             </a>`;
         }
 
         return `
           <tr class="hover:bg-slate-50 transition">
-            <td class="py-3.5 px-4 font-medium text-slate-900 align-top">${item.nama}</td>
+            <td class="py-3.5 px-4 font-semibold text-slate-900 align-top">${item.nama}</td>
             <td class="py-3.5 px-4 text-slate-600 align-top leading-relaxed">${item.jawatan}</td>
             <td class="py-3.5 px-4 font-mono text-slate-700 align-top">${item.ic}</td>
             <td class="py-3.5 px-4 font-mono text-slate-700 align-top">
@@ -223,15 +246,15 @@
             <td class="py-3.5 px-4 font-mono text-slate-600 align-top">
               ${cleanPA ? `<a href="tel:${cleanPA}" class="hover:underline text-slate-700">${item.telPA}</a>` : '-'}
             </td>
-            <td class="py-3.5 px-4 uppercase font-semibold text-slate-700 align-top">${item.tempat}</td>
+            <td class="py-3.5 px-4 uppercase font-bold text-slate-800 align-top">${item.tempat}</td>
             <td class="py-3.5 px-4 text-center font-mono text-[11px] text-slate-600 align-top whitespace-pre-line">${dateFormatted}</td>
             <td class="py-3.5 px-4 text-center text-slate-700 align-top text-[11px] font-medium bg-slate-50/50">${item.sediaBerapa || '-'}</td>
-            <td class="py-3.5 px-4 text-center align-top">${kpElement}</td>
+            <td class="py-3.5 px-4 text-center align-top">${gambarElement}</td>
             <td class="py-3.5 px-4 text-center align-top">
               <div class="flex items-center justify-center gap-2">
-                <button onclick="editMaklumat(${idx})" class="text-blue-600 hover:text-blue-800 font-semibold">Edit</button>
+                <button onclick="editMaklumat(${idx})" class="text-blue-700 hover:text-blue-900 font-bold">Edit</button>
                 <span class="text-slate-300">|</span>
-                <button onclick="salinMaklumat(${idx})" class="text-slate-600 hover:text-slate-800">Salin</button>
+                <button onclick="salinMaklumat(${idx})" class="text-slate-600 hover:text-slate-800 font-medium">Salin</button>
               </div>
             </td>
           </tr>
@@ -239,7 +262,6 @@
       }).join('');
     }
 
-    // Fungsi Muatkan Maklumat ke Borang untuk Disunting (Edit)
     function editMaklumat(index) {
       const s = speakerList[index];
       document.getElementById("editRowIndex").value = s.rowIndex || (index + 2);
@@ -250,63 +272,57 @@
       document.getElementById("noTelPA").value = (s.telPA === '-' ? '' : s.telPA);
       document.getElementById("tempat").value = s.tempat;
       document.getElementById("sediaBerapa").value = s.sediaBerapa;
-      document.getElementById("existingFileUrl").value = s.icStatus || "";
+      document.getElementById("existingGambarUrl").value = s.gambarUrl || "";
 
-      // Asingkan semula tarikh mula dan akhir
       const parts = (s.tarikh || "").split(/→|->/).map(p => p.trim());
       if (parts.length >= 2) {
         document.getElementById("tarikhMula").value = parts[0];
         document.getElementById("tarikhAkhir").value = parts[1];
       }
 
-      // Paparkan status dokumen sedia ada
       const fileLabel = document.getElementById("fileExistingLabel");
-      if (s.icStatus && s.icStatus.startsWith('http')) {
-        fileLabel.innerHTML = `<i class="fa-solid fa-check text-emerald-600 mr-1"></i> Gambar KP sedia ada: <a href="${s.icStatus}" target="_blank" class="underline font-bold">Buka Fail HD</a> (Muat naik fail baru hanya jika mahu menggantikannya).`;
+      if (s.gambarUrl && s.gambarUrl.startsWith('http')) {
+        fileLabel.innerHTML = `<i class="fa-solid fa-check text-emerald-600 mr-1"></i> Gambar sedia ada: <a href="${s.gambarUrl}" target="_blank" class="underline font-bold">Lihat Fail HD Sedia Ada</a> (Pilih fail baru hanya jika ingin menggantikannya).`;
         fileLabel.classList.remove("hidden");
       } else {
         fileLabel.classList.add("hidden");
       }
 
-      // Tukar rupa bentuk borang kepada Mod Kemaskini
-      document.getElementById("formTitle").innerText = `Kemaskini Maklumat: ${s.nama}`;
-      document.getElementById("formSubtitle").innerText = "Sila buat pembetulan dan tekan butang 'Kemaskini Maklumat' di bawah.";
+      document.getElementById("formTitle").innerText = `Kemaskini Rekod: ${s.nama}`;
+      document.getElementById("formSubtitle").innerText = "Sila buat pindaan yang diperlukan dan klik 'Kemaskini Maklumat'.";
       document.getElementById("btnHantar").innerText = "Kemaskini Maklumat";
-      document.getElementById("btnHantar").className = "bg-amber-500 hover:bg-amber-600 text-slate-900 text-xs font-bold px-7 py-2.5 rounded-lg shadow-sm transition active:scale-95";
+      document.getElementById("btnHantar").className = "bg-amber-500 hover:bg-amber-600 text-slate-900 text-xs font-bold px-8 py-2.5 rounded-xl shadow transition active:scale-95";
       document.getElementById("cancelEditBtn").classList.remove("hidden");
 
-      // Skrol ke bahagian borang
       document.getElementById("formContainer").scrollIntoView({ behavior: 'smooth' });
     }
 
     function resetFormToNew() {
       document.getElementById("penceramahForm").reset();
       document.getElementById("editRowIndex").value = "";
-      document.getElementById("existingFileUrl").value = "";
+      document.getElementById("existingGambarUrl").value = "";
       document.getElementById("fileExistingLabel").classList.add("hidden");
 
       document.getElementById("formTitle").innerText = "Daftar Jadual & Maklumat Penceramah";
       document.getElementById("formSubtitle").innerText = "Sila lengkapkan maklumat bagi tujuan permohonan permit polis dan penyusunan DUN.";
       document.getElementById("btnHantar").innerText = "Hantar";
-      document.getElementById("btnHantar").className = "bg-[#1b3864] hover:bg-[#132847] text-white text-xs font-bold px-7 py-2.5 rounded-lg shadow-sm transition active:scale-95";
+      document.getElementById("btnHantar").className = "bg-[#173059] hover:bg-[#0f213d] text-white text-xs font-bold px-8 py-2.5 rounded-xl shadow transition active:scale-95";
       document.getElementById("cancelEditBtn").classList.add("hidden");
     }
 
     function salinMaklumat(index) {
       const s = speakerList[index];
-      const text = `NAMA: ${s.nama}\nNO. KAD PENGENALAN: ${s.ic}\nNO. TEL PENCERAMAH: ${s.telPenceramah}\nNO. TEL PA: ${s.telPA || '-'}\nJAWATAN: ${s.jawatan}\nTEMPAT: ${s.tempat}\nTARIKH: ${s.tarikh.replace(/\n/g, ' ')}\nKAPASITI TEMPAT: ${s.sediaBerapa || '-'}\nLINK SALINAN KP: ${s.icStatus || 'Tiada'}`;
+      const text = `NAMA: ${s.nama}\nNO. KAD PENGENALAN: ${s.ic}\nNO. TEL PENCERAMAH: ${s.telPenceramah}\nNO. TEL PA: ${s.telPA || '-'}\nJAWATAN: ${s.jawatan}\nTEMPAT: ${s.tempat}\nTARIKH: ${s.tarikh.replace(/\n/g, ' ')}\nKAPASITI TEMPAT: ${s.sediaBerapa || '-'}\nGAMBAR PENCERAMAH (HD): ${s.gambarUrl || 'Tiada'}`;
       navigator.clipboard.writeText(text);
-      alert(`Maklumat rasmi permit ${s.nama} telah disalin!`);
+      alert(`Maklumat rasmi ${s.nama} telah disalin!`);
     }
 
-    // Fungsi membaca fail kepada format Base64
     function readFileAsBase64(file) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = () => {
           const res = reader.result;
-          const base64 = res.split(',')[1];
-          resolve(base64);
+          resolve(res.split(',')[1]);
         };
         reader.onerror = reject;
         reader.readAsDataURL(file);
@@ -317,13 +333,13 @@
       e.preventDefault();
       const btn = document.getElementById("btnHantar");
       btn.disabled = true;
-      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i> Memproses & Menyimpan...`;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i> Memproses...`;
 
       const tMula = document.getElementById("tarikhMula").value;
       const tAkhir = document.getElementById("tarikhAkhir").value;
       const tarikhGabung = `${tMula} → ${tAkhir}`;
 
-      const fileInput = document.getElementById("fileKP");
+      const fileInput = document.getElementById("fileGambar");
       let fileBase64 = null;
       let fileName = null;
       let fileType = null;
@@ -349,7 +365,7 @@
         tempat: document.getElementById("tempat").value,
         tarikh: tarikhGabung,
         sediaBerapa: document.getElementById("sediaBerapa").value,
-        icFileUrl: document.getElementById("existingFileUrl").value,
+        existingGambarUrl: document.getElementById("existingGambarUrl").value,
         fileBase64: fileBase64,
         fileName: fileName,
         fileType: fileType
@@ -363,7 +379,7 @@
           body: JSON.stringify(payload)
         });
 
-        alert(payload.rowIndex ? "Maklumat penceramah berjaya dikemaskini!" : "Penceramah berjaya didaftarkan ke Google Sheet!");
+        alert(payload.rowIndex ? "Rekod penceramah berjaya dikemaskini!" : "Penceramah berjaya didaftarkan ke pangkalan data!");
         resetFormToNew();
         setTimeout(loadData, 1800);
       } catch (err) {
