@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Borang Penceramah Perikatan Nasional - PRN Melaka ke-16</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     .pn-header-bg {
       background: linear-gradient(135deg, #0b1a33 0%, #173059 55%, #0b1a33 100%);
@@ -90,11 +90,11 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1">Nama Penuh Penceramah <span class="text-red-500">*</span></label>
-            <input type="text" id="nama" required placeholder="Contoh: Ustaz Muhammad Farid" class="w-full bg-slate-50/50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-800" />
+            <input type="text" id="nama" required maxlength="120" placeholder="Contoh: Ustaz Muhammad Farid" class="w-full bg-slate-50/50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-800" />
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1">Jawatan / Parti / NGO <span class="text-red-500">*</span></label>
-            <input type="text" id="jawatan" required placeholder="Contoh: Naib Ketua Ulamak Kawasan" class="w-full bg-slate-50/50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-800" />
+            <input type="text" id="jawatan" required maxlength="150" placeholder="Contoh: Naib Ketua Ulamak Kawasan" class="w-full bg-slate-50/50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-800" />
           </div>
         </div>
 
@@ -104,17 +104,17 @@
             <label class="block text-xs font-semibold text-slate-700 mb-1">
               No Telefon Penceramah <span class="text-red-500">*</span>
             </label>
-            <input type="text" id="noTelPenceramah" required placeholder="Contoh: 0145701319" class="w-full bg-slate-50/50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-800 font-mono" />
+            <input type="tel" id="noTelPenceramah" required placeholder="Contoh: 0145701319" maxlength="15" class="w-full bg-slate-50/50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-800 font-mono" />
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1">
               No Telefon PA <span class="text-slate-400 font-normal">(Pilihan)</span>
             </label>
-            <input type="text" id="noTelPA" placeholder="Contoh: 0195597066" class="w-full bg-slate-50/50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-800 font-mono" />
+            <input type="tel" id="noTelPA" placeholder="Contoh: 0195597066" maxlength="15" class="w-full bg-slate-50/50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-800 font-mono" />
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1">No Kad Pengenalan <span class="text-red-500">*</span></label>
-            <input type="text" id="noKP" required placeholder="Cth: 900925035701" class="w-full bg-slate-50/50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-800 font-mono" />
+            <input type="text" id="noKP" required placeholder="12 digit tanpa tanda sempang (cth: 900925035701)" maxlength="12" pattern="\d{12}" class="w-full bg-slate-50/50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-800 font-mono" />
           </div>
         </div>
 
@@ -156,7 +156,7 @@
               <i class="fa-solid fa-camera text-[#173059] mr-1.5"></i> Gambar Penceramah (Format HD)
             </label>
             <p class="text-[11px] text-slate-500 mb-2">
-              Digunakan untuk tujuan penghasilan poster kempen.
+              Digunakan untuk tujuan penghasilan poster kempen (Maksimum 5MB).
             </p>
             <input type="file" id="fileGambar" accept="image/jpeg,image/png,image/webp" 
               class="w-full text-xs text-slate-600 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-[#173059] file:text-white hover:file:bg-[#10223f] cursor-pointer" />
@@ -169,7 +169,7 @@
               <i class="fa-regular fa-id-card text-sky-800 mr-1.5"></i> Salinan Kad Pengenalan (HD / PDF)
             </label>
             <p class="text-[11px] text-slate-500 mb-2">
-              Digunakan secara sulit untuk permohonan permit polis (tidak dipaparkan di web).
+              Digunakan secara sulit untuk permit polis (tidak dipaparkan di web, maks 5MB).
             </p>
             <input type="file" id="fileIC" accept="image/jpeg,image/png,image/webp,.pdf" 
               class="w-full text-xs text-slate-600 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-sky-800 file:text-white hover:file:bg-sky-900 cursor-pointer" />
@@ -201,7 +201,7 @@
         </div>
       </div>
 
-      <!-- Jadual Utama -->
+      <!-- Jadual Utama (Kolum No KP Dipadam untuk Perlindungan Privasi) -->
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
         <div class="overflow-x-auto">
           <table class="w-full text-left border-collapse text-xs">
@@ -209,7 +209,6 @@
               <tr class="bg-[#dce8f5] text-[#173059] font-bold border-b border-blue-100">
                 <th class="py-3.5 px-4 font-bold">Nama</th>
                 <th class="py-3.5 px-4 font-bold">Jawatan</th>
-                <th class="py-3.5 px-4 font-bold">No KP</th>
                 <th class="py-3.5 px-4 font-bold">Tel Penceramah</th>
                 <th class="py-3.5 px-4 font-bold">Tel PA</th>
                 <th class="py-3.5 px-4 font-bold text-center">Tarikh</th>
@@ -231,9 +230,11 @@
   </main>
 
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzt0soGELMXkHdLbNAc2zHVPe1qEwS6o0VCBUbr7v2lJWkWBx5RXA3ZrhhRGIDCnh8r/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwt-i0wrZsMBTcGbmvMCYSfy5MMfS5BoCMo7oEPvLLxBZVdXbatKT2UKHK6x_duNAc/exec";
     let speakerList = [];
     let activeDunFilter = "ALL";
+
+    const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 
     const DUN_LIST = [
       "Bukit Katil (Kerusi Calon PAS)",
@@ -243,12 +244,29 @@
       "Ayer Keroh (Kerusi Calon Gerakan)"
     ];
 
+    // Fungsi Sanitasi XSS (Cross-Site Scripting)
+    function escapeHTML(str) {
+      if (!str) return "";
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    // Pengesahan URL Google Drive Sah
+    function isSafeDriveUrl(url) {
+      if (!url || typeof url !== "string") return false;
+      return /^https:\/\/(drive|docs)\.google\.com\//i.test(url.trim());
+    }
+
     async function loadData() {
       const tbody = document.getElementById("penceramahTableBody");
-      tbody.innerHTML = `<tr><td colspan="10" class="text-center py-8 text-slate-400"><i class="fa-solid fa-spinner fa-spin text-blue-900 text-sm mb-1"></i><br>Menyegerak rekod dari Google Sheet...</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="9" class="text-center py-8 text-slate-400"><i class="fa-solid fa-spinner fa-spin text-blue-900 text-sm mb-1"></i><br>Menyegerak rekod dari Google Sheet...</td></tr>`;
 
       try {
-        const res = await fetch(`${SCRIPT_URL}?_=${Date.now()}`);
+        const res = await fetch(`${SCRIPT_URL}?_=${Date.now()}`, { credentials: "omit" });
         if (!res.ok) throw new Error("Gagal menyambung");
         const data = await res.json();
         speakerList = Array.isArray(data) ? data : [];
@@ -304,8 +322,8 @@
           : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50';
 
         html += `
-          <button onclick="setFilter('${dun}')" class="px-2.5 py-1 rounded-lg text-[11px] font-semibold border transition ${style}">
-            ${shortLabel} <span class="ml-1 opacity-75">(${counts[dun]})</span>
+          <button onclick="setFilter('${escapeHTML(dun)}')" class="px-2.5 py-1 rounded-lg text-[11px] font-semibold border transition ${style}">
+            ${escapeHTML(shortLabel)} <span class="ml-1 opacity-75">(${counts[dun]})</span>
           </button>
         `;
       });
@@ -319,7 +337,6 @@
       renderTable();
     }
 
-    // Render setiap DUN sebagai Tag / Badge berasingan
     function renderTags(sediaTempatString) {
       if (!sediaTempatString || sediaTempatString.trim() === "-" || sediaTempatString.trim() === "") {
         return `<span class="text-slate-400 text-[11px]">-</span>`;
@@ -331,9 +348,9 @@
           ${tags.map(tag => {
             const style = getTagStyle(tag);
             return `
-              <span onclick="setFilter('${tag}')" title="Klik untuk tapis penceramah bagi ${tag}" class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold border cursor-pointer transition select-none shadow-xs ${style}">
+              <span onclick="setFilter('${escapeHTML(tag)}')" title="Klik untuk tapis penceramah bagi ${escapeHTML(tag)}" class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold border cursor-pointer transition select-none shadow-xs ${style}">
                 <i class="fa-solid fa-tag text-[9px] opacity-70"></i>
-                ${tag}
+                ${escapeHTML(tag)}
               </span>`;
           }).join('')}
         </div>
@@ -351,9 +368,9 @@
       if (filteredList.length === 0) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="10" class="text-center py-12 text-slate-400">
+            <td colspan="9" class="text-center py-12 text-slate-400">
               <i class="fa-regular fa-folder-open text-2xl text-slate-300 mb-2"></i>
-              <p>Tiada rekod penceramah dijumpai ${activeDunFilter !== "ALL" ? `bagi DUN <b>${activeDunFilter}</b>` : "di Google Sheet"}.</p>
+              <p>Tiada rekod penceramah dijumpai ${activeDunFilter !== "ALL" ? `bagi DUN <b>${escapeHTML(activeDunFilter)}</b>` : "di Google Sheet"}.</p>
             </td>
           </tr>
         `;
@@ -364,12 +381,12 @@
         const originalIndex = speakerList.indexOf(item);
         const cleanTel = (item.telPenceramah || "").replace(/[^0-9]/g, '');
         const cleanPA = (item.telPA || "").replace(/[^0-9]/g, '');
-        const dateFormatted = (item.tarikh || "").replace(/→|->/g, '\n→\n');
+        const dateFormatted = escapeHTML(item.tarikh || "").replace(/→|->/g, '\n→\n');
 
         let gambarBtn = `<span class="text-slate-400 text-[11px]">Tiada</span>`;
-        if (item.gambarUrl && item.gambarUrl.startsWith('http')) {
+        if (isSafeDriveUrl(item.gambarUrl)) {
           gambarBtn = `
-            <a href="${item.gambarUrl}" target="_blank" class="inline-flex items-center gap-1 bg-emerald-50 text-emerald-800 border border-emerald-300 px-2 py-0.5 rounded text-[11px] font-bold hover:bg-emerald-100 transition shadow-sm">
+            <a href="${encodeURI(item.gambarUrl)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 bg-emerald-50 text-emerald-800 border border-emerald-300 px-2 py-0.5 rounded text-[11px] font-bold hover:bg-emerald-100 transition shadow-sm">
               <i class="fa-solid fa-image text-emerald-600"></i> Lihat
             </a>`;
         }
@@ -378,7 +395,7 @@
           <span class="inline-flex items-center gap-1 bg-slate-100 text-slate-500 border border-slate-200 px-2 py-0.5 rounded-full text-[10px] font-medium">
             <i class="fa-solid fa-circle-xmark text-slate-400"></i> Tiada
           </span>`;
-        if (item.icUrl && item.icUrl.startsWith('http')) {
+        if (isSafeDriveUrl(item.icUrl)) {
           icIndicator = `
             <span class="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-0.5 rounded-full text-[10px] font-bold">
               <i class="fa-solid fa-circle-check text-emerald-600"></i> Ada
@@ -387,14 +404,13 @@
 
         return `
           <tr class="hover:bg-slate-50 transition">
-            <td class="py-3.5 px-4 font-semibold text-slate-900 align-top">${item.nama}</td>
-            <td class="py-3.5 px-4 text-slate-600 align-top leading-relaxed">${item.jawatan}</td>
-            <td class="py-3.5 px-4 font-mono text-slate-700 align-top">${item.ic}</td>
+            <td class="py-3.5 px-4 font-semibold text-slate-900 align-top">${escapeHTML(item.nama)}</td>
+            <td class="py-3.5 px-4 text-slate-600 align-top leading-relaxed">${escapeHTML(item.jawatan)}</td>
             <td class="py-3.5 px-4 font-mono text-slate-700 align-top">
-              <a href="tel:${cleanTel}" class="hover:underline text-blue-900 font-semibold">${item.telPenceramah}</a>
+              <a href="tel:${cleanTel}" class="hover:underline text-blue-900 font-semibold">${escapeHTML(item.telPenceramah)}</a>
             </td>
             <td class="py-3.5 px-4 font-mono text-slate-600 align-top">
-              ${cleanPA ? `<a href="tel:${cleanPA}" class="hover:underline text-slate-700">${item.telPA}</a>` : '-'}
+              ${cleanPA ? `<a href="tel:${cleanPA}" class="hover:underline text-slate-700">${escapeHTML(item.telPA)}</a>` : '-'}
             </td>
             <td class="py-3.5 px-4 text-center font-mono text-[11px] text-slate-600 align-top whitespace-pre-line">${dateFormatted}</td>
             <td class="py-3 px-4 align-top">${renderTags(item.sediaTempat)}</td>
@@ -419,7 +435,7 @@
       document.getElementById("editRowIndex").value = s.rowIndex || (index + 2);
       document.getElementById("nama").value = s.nama;
       document.getElementById("jawatan").value = s.jawatan;
-      document.getElementById("noKP").value = s.ic;
+      document.getElementById("noKP").value = s.ic || "";
       document.getElementById("noTelPenceramah").value = s.telPenceramah;
       document.getElementById("noTelPA").value = (s.telPA === '-' ? '' : s.telPA);
       document.getElementById("existingGambarUrl").value = s.gambarUrl || "";
@@ -437,16 +453,16 @@
       }
 
       const gLabel = document.getElementById("fileExistingGambarLabel");
-      if (s.gambarUrl && s.gambarUrl.startsWith('http')) {
-        gLabel.innerHTML = `<i class="fa-solid fa-check text-emerald-600 mr-1"></i> <a href="${s.gambarUrl}" target="_blank" class="underline font-bold">Gambar HD Sedia Ada</a> (Pilih fail baharu jika mahu ganti).`;
+      if (isSafeDriveUrl(s.gambarUrl)) {
+        gLabel.innerHTML = `<i class="fa-solid fa-check text-emerald-600 mr-1"></i> <a href="${encodeURI(s.gambarUrl)}" target="_blank" rel="noopener noreferrer" class="underline font-bold">Gambar HD Sedia Ada</a> (Pilih fail baharu jika mahu ganti).`;
         gLabel.classList.remove("hidden");
       } else {
         gLabel.classList.add("hidden");
       }
 
       const icLabel = document.getElementById("fileExistingICLabel");
-      if (s.icUrl && s.icUrl.startsWith('http')) {
-        icLabel.innerHTML = `<i class="fa-solid fa-shield-halved text-emerald-600 mr-1"></i> Salinan IC sudah selamat disimpan di arkib Drive. (Pilih fail baharu jika perlu menggantikan).`;
+      if (isSafeDriveUrl(s.icUrl)) {
+        icLabel.innerHTML = `<i class="fa-solid fa-shield-halved text-emerald-600 mr-1"></i> Salinan IC sudah selamat disimpan di arkib sulit Drive. (Pilih fail baharu jika perlu menggantikan).`;
         icLabel.classList.remove("hidden");
       } else {
         icLabel.classList.add("hidden");
@@ -470,6 +486,7 @@
         await fetch(SCRIPT_URL, {
           method: "POST",
           mode: "no-cors",
+          credentials: "omit",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             action: "delete",
@@ -501,10 +518,11 @@
       document.getElementById("cancelEditBtn").classList.add("hidden");
     }
 
+    // Salin maklumat ke clipboard tanpa mendedahkan nombor IC
     function salinMaklumat(index) {
       const s = speakerList[index];
-      const hasIC = (s.icUrl && s.icUrl.startsWith('http')) ? 'Disimpan di Arkib (Sulit)' : 'Tiada';
-      const text = `NAMA: ${s.nama}\nNO. KAD PENGENALAN: ${s.ic}\nNO. TEL PENCERAMAH: ${s.telPenceramah}\nNO. TEL PA: ${s.telPA || '-'}\nJAWATAN: ${s.jawatan}\nTARIKH: ${s.tarikh.replace(/\n/g, ' ')}\nSEDIA CERAMAH DI DUN: ${s.sediaTempat || '-'}\nLINK GAMBAR HD: ${s.gambarUrl || 'Tiada'}\nSTATUS SALINAN IC: ${hasIC}`;
+      const hasIC = isSafeDriveUrl(s.icUrl) ? 'Disimpan di Arkib Sulit (Tersedia di Sheet)' : 'Tiada';
+      const text = `NAMA: ${s.nama}\nNO. TEL PENCERAMAH: ${s.telPenceramah}\nNO. TEL PA: ${s.telPA || '-'}\nJAWATAN: ${s.jawatan}\nTARIKH: ${s.tarikh.replace(/\n/g, ' ')}\nSEDIA CERAMAH DI DUN: ${s.sediaTempat || '-'}\nLINK GAMBAR HD: ${s.gambarUrl || 'Tiada'}\nSTATUS SALINAN IC: ${hasIC}`;
       navigator.clipboard.writeText(text);
       alert(`Maklumat rasmi ${s.nama} telah disalin!`);
     }
@@ -524,6 +542,7 @@
     async function handleSubmit(e) {
       e.preventDefault();
 
+      // 1. Validasi DUN
       const checkedBoxes = Array.from(document.querySelectorAll('input[name="sediaTempat"]:checked')).map(cb => cb.value);
       if (checkedBoxes.length === 0) {
         alert("Sila pilih sekurang-kurangnya satu DUN di bahagian 'Sedia Ceramah Di DUN'!");
@@ -531,38 +550,61 @@
       }
       const sediaTempatVal = checkedBoxes.join(', ');
 
-      const btn = document.getElementById("btnHantar");
-      btn.disabled = true;
-      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i> Memproses & Menyimpan Fail...`;
+      // 2. Validasi Format No KP (Mesti 12 Angka)
+      const rawIC = document.getElementById("noKP").value.replace(/[^0-9]/g, "");
+      if (rawIC.length !== 12) {
+        alert("Sila pastikan Nombor Kad Pengenalan mengandungi tepat 12 digit nombor tanpa tanda sempang (-)!");
+        document.getElementById("noKP").focus();
+        return;
+      }
 
+      // 3. Validasi Tarikh
       const tMula = document.getElementById("tarikhMula").value;
       const tAkhir = document.getElementById("tarikhAkhir").value;
+      if (tAkhir < tMula) {
+        alert("Tarikh Akhir tidak boleh lebih awal daripada Tarikh Mula!");
+        return;
+      }
       const tarikhGabung = `${tMula} → ${tAkhir}`;
 
+      // 4. Validasi Fail Gambar (Saiz Maksimum 5MB)
       const fileGambarInput = document.getElementById("fileGambar");
       let gambarBase64 = null, gambarName = null, gambarType = null;
       if (fileGambarInput.files.length > 0) {
         const fG = fileGambarInput.files[0];
+        if (fG.size > MAX_FILE_SIZE) {
+          alert(`Fail gambar ${fG.name} melebihi had saiz 5MB! Sila pilih imej yang lebih kecil.`);
+          return;
+        }
         gambarName = fG.name;
         gambarType = fG.type;
         try { gambarBase64 = await readFileAsBase64(fG); } catch (e) { console.warn(e); }
       }
 
+      // 5. Validasi Fail IC (Saiz Maksimum 5MB)
       const fileICInput = document.getElementById("fileIC");
       let icBase64 = null, icName = null, icType = null;
       if (fileICInput.files.length > 0) {
         const fI = fileICInput.files[0];
+        if (fI.size > MAX_FILE_SIZE) {
+          alert(`Fail salinan IC ${fI.name} melebihi had saiz 5MB! Sila pilih fail yang lebih kecil.`);
+          return;
+        }
         icName = fI.name;
         icType = fI.type;
         try { icBase64 = await readFileAsBase64(fI); } catch (e) { console.warn(e); }
       }
+
+      const btn = document.getElementById("btnHantar");
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i> Menyimpan Maklumat...`;
 
       const payload = {
         action: "save",
         rowIndex: document.getElementById("editRowIndex").value,
         nama: document.getElementById("nama").value.trim(),
         jawatan: document.getElementById("jawatan").value.trim(),
-        ic: document.getElementById("noKP").value.trim(),
+        ic: rawIC,
         telPenceramah: document.getElementById("noTelPenceramah").value.trim(),
         telPA: document.getElementById("noTelPA").value.trim(),
         tarikh: tarikhGabung,
@@ -581,6 +623,7 @@
         await fetch(SCRIPT_URL, {
           method: "POST",
           mode: "no-cors",
+          credentials: "omit",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
         });
