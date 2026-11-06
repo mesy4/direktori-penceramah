@@ -576,8 +576,6 @@
                 <button data-action="edit" data-index="${originalIndex}" class="text-blue-700 hover:text-blue-900 font-bold">Edit</button>
                 <span class="text-slate-300">|</span>
                 <button data-action="copy" data-index="${originalIndex}" class="text-slate-600 hover:text-slate-800 font-medium">Salin</button>
-                <span class="text-slate-300">|</span>
-                <button data-action="delete" data-index="${originalIndex}" class="text-rose-600 hover:text-rose-800 font-semibold">Padam</button>
               </div>
             </td>
           </tr>
@@ -598,7 +596,6 @@
       const idx = parseInt(btn.dataset.index, 10);
       if (btn.dataset.action === "edit") editMaklumat(idx);
       else if (btn.dataset.action === "copy") salinMaklumat(idx);
-      else if (btn.dataset.action === "delete") padamMaklumat(idx);
     });
 
     function editMaklumat(index) {
@@ -639,30 +636,6 @@
       document.getElementById("cancelEditBtn").classList.remove("hidden");
 
       document.getElementById("formContainer").scrollIntoView({ behavior: 'smooth' });
-    }
-
-    async function padamMaklumat(index) {
-      const s = speakerList[index];
-      const sah = confirm(`Adakah anda pasti untuk padam rekod "${s.nama}" dari paparan laman web?\n(Nota: Rekod asal masih disimpan di Google Sheet sebagai arkib).`);
-      if (!sah) return;
-
-      try {
-        await fetch(SCRIPT_URL, {
-          method: "POST",
-          mode: "no-cors",
-          credentials: "omit",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            action: "delete",
-            rowIndex: s.rowIndex || (index + 2)
-          })
-        });
-
-        alert(`Rekod "${s.nama}" telah dipadam dari paparan.`);
-        setTimeout(loadData, 1500);
-      } catch (err) {
-        alert("Ralat memadam rekod: " + err.message);
-      }
     }
 
     function resetFormToNew() {
