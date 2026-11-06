@@ -18,6 +18,7 @@ async function loadData() {
     console.error("Ralat pangkalan data:", e);
     speakerList = [];
   }
+  renderDateFilterButtons();
   renderFilterButtons();
   renderTable();
 }
@@ -204,6 +205,17 @@ async function handleSubmit(e) {
 document.getElementById("dunFilterContainer").addEventListener("click", (e) => {
   const btn = e.target.closest("button[data-filter]");
   if (btn) setFilter(btn.dataset.filter);
+});
+
+// Penapis Tarikh
+document.getElementById("dateFilterContainer").addEventListener("click", (e) => {
+  const btn = e.target.closest("button[data-date-filter]");
+  if (btn) setDateFilter(btn.dataset.dateFilter);
+});
+
+// Butang kosongkan penapis tarikh
+document.getElementById("clearDateFilterBtn").addEventListener("click", () => {
+  setDateFilter("ALL");
 });
 
 // Butang susunan tarikh pada header jadual

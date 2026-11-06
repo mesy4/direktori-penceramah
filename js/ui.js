@@ -7,6 +7,7 @@
 // State global paparan
 let speakerList = [];
 let activeDunFilter = "ALL";
+let activeDateFilter = null; // null = tiada penapis tarikh, atau "YYYY-MM-DD"
 let dateSortAsc = true; // true = terawal dulu (menaik), false = terkini dulu (menurun)
 
 function formatDateLabel(iso) {
@@ -76,6 +77,54 @@ function getTagStyle(rawName) {
     return "bg-amber-50 text-amber-800 border-amber-300 hover:bg-amber-100";
   }
   return "bg-slate-100 text-slate-700 border-slate-300 hover:bg-slate-200";
+}
+
+// Render butang penapis tarikh (dengan bilangan penceramah setiap tarikh)
+function renderDateFilterButtons() {
+  const container = document.getElementById("dateFilterContainer");
+  const clearBtn = document.getElementById("clearDateFilterBtn");
+
+  // Kira bilangan penceramah yang available pada setiap tarikh
+  const counts = {};
+  CAMPAIGN_DATES.forEach(d => counts[d] = 0);
+  speakerList.forEach(s => {
+    const dates = (s.tarikh || "").match(/\d{4}-\d{2}-\d{2}/g) || [];
+    const unique = [...new Set(dates)];
+    unique.forEach(d => {
+      if (counts[d] !== undefined) counts[d]++;
+    });
+  });
+
+  let html = `
+    <button data-date-filter="ALL" class="px-2.5 py-1 rounded-lg text-[11px] font-bold border transition ${
+      activeDateFilter === null
+        ? 'bg-[#173059] text-white border-[#173059] shadow-sm'
+        : 'bg-slate-100 text-slate-600 border-slate-200 hover:bg-slate-200'
+    }">
+      Semua Tarikh
+    </button>
+  `;
+
+  CAMPAIGN_DATES.forEach(iso => {
+    const isSelected = activeDateFilter === iso;
+    const style = isSelected
+      ? 'bg-[#173059] text-white border-[#173059] shadow-sm'
+      : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50';
+    html += `
+      <button data-date-filter="${iso}" class="px-2.5 py-1 rounded-lg text-[11px] font-semibold border transition ${style}">
+        ${formatDateLabel(iso)} <span class="ml-1 opacity-75">(${counts[iso]})</span>
+      </button>
+    `;
+  });
+
+  container.innerHTML = html;
+  clearBtn.classList.toggle("hidden", activeDateFilter === null);
+}
+
+function setDateFilter(iso) {
+  activeDateFilter = (iso === "ALL") ? null : iso;
+  renderDateFilterButtons();
+  renderTable();
 }
 
 function renderFilterButtons() {
@@ -149,9 +198,14 @@ function renderTable() {
   const tbody = document.getElementById("penceramahTableBody");
 
   const filteredList = speakerList.filter(item => {
-    if (activeDunFilter === "ALL") return true;
-    // Padan ikut nama DUN sahaja - serasi dengan format label lama & baharu
-    return (item.sediaTempat || "").includes(activeDunFilter);
+    // Penapis DUN (padan nama DUN sahaja - serasi format lama & baharu)
+    if (activeDunFilter !== "ALL" && !(item.sediaTempat || "").includes(activeDunFilter)) return false;
+    // Penapis Tarikh - penceramah mesti available pada tarikh yang dipilih
+    if (activeDateFilter) {
+      const dates = (item.tarikh || "").match(/\d{4}-\d{2}-\d{2}/g) || [];
+      if (!dates.includes(activeDateFilter)) return false;
+    }
+    return true;
   });
 
   // Susun penceramah ikut tarikh (terawal atau terkini)
@@ -174,7 +228,7 @@ function renderTable() {
       <tr>
         <td colspan="8" class="text-center py-12 text-slate-400">
           <i class="fa-regular fa-folder-open text-2xl text-slate-300 mb-2"></i>
-          <p>Tiada rekod penceramah dijumpai ${activeDunFilter !== "ALL" ? `bagi DUN <b>${escapeHTML(activeDunFilter)}</b>` : "di Google Sheet"}.</p>
+          <p>Tiada rekod penceramah dijumpai ${activeDunFilter !== "ALL" ? `bagi DUN <b>${escapeHTML(activeDunFilter)}</b>` : ""}${activeDateFilter ? ` pada tarikh <b>${formatDateLabel(activeDateFilter)}</b>` : ""}.</p>
         </td>
       </tr>
     `;

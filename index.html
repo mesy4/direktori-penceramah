@@ -196,7 +196,23 @@
 
     <!-- 2. Bar Penapis Tag DUN & Jadual Rekod Penceramah -->
     <div class="space-y-3">
-      
+
+      <!-- Bar Penapis Tarikh -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200/90 p-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <i class="fa-regular fa-calendar-check text-[#173059] text-xs"></i>
+            <span class="text-xs font-bold text-slate-800">Tapis Mengikut Tarikh:</span>
+            <button id="clearDateFilterBtn" class="hidden text-[10px] text-rose-600 hover:text-rose-800 font-bold underline">
+              <i class="fa-solid fa-xmark"></i> Kosongkan
+            </button>
+          </div>
+          <div id="dateFilterContainer" class="flex flex-wrap items-center gap-1.5">
+            <!-- Butang penapis tarikh dijana secara automatik -->
+          </div>
+        </div>
+      </div>
+
       <!-- Filter Bar Tag DUN -->
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200/90 p-4">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
