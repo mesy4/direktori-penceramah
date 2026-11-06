@@ -236,7 +236,11 @@
                 <th class="py-3.5 px-4 font-bold">Jawatan</th>
                 <th class="py-3.5 px-4 font-bold">Tel Penceramah</th>
                 <th class="py-3.5 px-4 font-bold">Tel PA</th>
-                <th class="py-3.5 px-4 font-bold text-center">Tarikh</th>
+                <th class="py-3.5 px-4 font-bold text-center">
+                  <button id="sortDateBtn" class="inline-flex items-center gap-1 hover:text-blue-900 transition select-none" title="Klik untuk tukar susunan tarikh">
+                    Tarikh <i id="sortDateIcon" class="fa-solid fa-arrow-down-short-wide text-[10px]"></i>
+                  </button>
+                </th>
                 <th class="py-3.5 px-4 font-bold min-w-[240px]">Sedia Di DUN (Tag)</th>
                 <th class="py-3.5 px-3 font-bold text-center">Gambar HD</th>
                 <th class="py-3.5 px-4 font-bold text-center">Tindakan</th>
@@ -280,6 +284,9 @@
         .replace(/[\x00-\x1F\x7F]/g, "") // buang aksara kawalan
         .trim();
     }
+
+    // Susunan tarikh: true = terawal dulu (menaik), false = terkini dulu (menurun)
+    let dateSortAsc = true;
 
     // Senarai 28 DUN Melaka - PRN ke-16 (Format: Nama DUN - Calon - Parti)
     const DUN_LIST = [
@@ -479,6 +486,12 @@
       if (btn) setFilter(btn.dataset.filter);
     });
 
+    // Butang susunan tarikh pada header jadual
+    document.getElementById("sortDateBtn").addEventListener("click", () => {
+      dateSortAsc = !dateSortAsc;
+      renderTable();
+    });
+
     function setFilter(dun) {
       activeDunFilter = dun;
       renderFilterButtons();
@@ -514,12 +527,20 @@
         return (item.sediaTempat || "").includes(activeDunFilter);
       });
 
-      // Susun penceramah: tarikh terawal di atas, terkini di bawah
+      // Susun penceramah ikut tarikh (terawal atau terkini)
       const getEarliestDate = (t) => {
         const dates = (t || "").match(/\d{4}-\d{2}-\d{2}/g);
         return dates ? dates.sort()[0] : "9999-12-31"; // rekod tanpa tarikh di hujung
       };
-      filteredList.sort((a, b) => getEarliestDate(a.tarikh).localeCompare(getEarliestDate(b.tarikh)));
+      const getLatestDate = (t) => {
+        const dates = (t || "").match(/\d{4}-\d{2}-\d{2}/g);
+        return dates ? dates.sort().pop() : "0000-01-01"; // rekod tanpa tarikh di hujung
+      };
+      const dateKeyFn = dateSortAsc ? getEarliestDate : getLatestDate;
+      filteredList.sort((a, b) => {
+        const cmp = dateKeyFn(a.tarikh).localeCompare(dateKeyFn(b.tarikh));
+        return dateSortAsc ? cmp : -cmp;
+      });
 
       if (filteredList.length === 0) {
         tbody.innerHTML = `
@@ -534,6 +555,13 @@
       }
 
       tbody.innerHTML = filteredList.map((item) => {
+        // Kemas kini ikon arah susunan tarikh
+        const sortIcon = document.getElementById("sortDateIcon");
+        if (sortIcon) {
+          sortIcon.className = dateSortAsc
+            ? "fa-solid fa-arrow-down-short-wide text-[10px]"
+            : "fa-solid fa-arrow-up-wide-short text-[10px]";
+        }
         const originalIndex = speakerList.indexOf(item);
         const cleanTel = (item.telPenceramah || "").replace(/[^0-9]/g, '');
         const cleanPA = (item.telPA || "").replace(/[^0-9]/g, '');
