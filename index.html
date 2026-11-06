@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Borang Penceramah Perikatan Nasional - PRN Melaka ke-16</title>
+  <title>Borang Penceramah Gabungan BN-PN - PRN Melaka ke-16</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
@@ -31,7 +31,7 @@
       <!-- Tajuk Utama Dua Baris (Tengah) -->
       <div class="text-center px-2 flex-1">
         <h1 class="text-lg md:text-2xl font-black tracking-tight text-white uppercase drop-shadow-sm">
-          Borang Penceramah Perikatan Nasional
+          Borang Penceramah Gabungan BN-PN
         </h1>
         <p class="text-sm md:text-base text-amber-400 font-extrabold tracking-wide mt-1 uppercase">
           PRN Melaka ke- 16
@@ -61,7 +61,7 @@
             Daftar Jadual & Maklumat Penceramah
           </h2>
           <p id="formSubtitle" class="text-xs text-slate-500 leading-relaxed mt-0.5">
-            Sila isi maklumat dengan lengkap dan tepat (beserta IC) untuk tujuan kelulusan permit polis serta muat naik gambar penceramah untuk tujuan penghasilan poster.
+            Sila isi maklumat dengan lengkap dan tepat untuk tujuan penjadualan ceramah serta muat naik gambar penceramah untuk tujuan penghasilan poster.
           </p>
         </div>
         <button id="cancelEditBtn" onclick="resetFormToNew()" class="hidden text-xs bg-slate-200 hover:bg-slate-300 text-slate-700 px-3.5 py-1.5 rounded-lg transition font-semibold">
@@ -72,18 +72,14 @@
       <form id="penceramahForm" onsubmit="handleSubmit(event)" class="space-y-4">
         <input type="hidden" id="editRowIndex" value="" />
         <input type="hidden" id="existingGambarUrl" value="" />
-        <input type="hidden" id="existingIcUrl" value="" />
 
-        <!-- Tarikh Mula & Tarikh Akhir -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">Tarikh Mula <span class="text-red-500">*</span></label>
-            <input type="date" id="tarikhMula" required class="w-full bg-slate-50/50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-800" />
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">Tarikh Akhir <span class="text-red-500">*</span></label>
-            <input type="date" id="tarikhAkhir" required class="w-full bg-slate-50/50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-800" />
-          </div>
+        <!-- Pilihan Tarikh Ceramah (Tickbox Berbilang Tarikh) -->
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1.5">
+            Pilih Tarikh Ceramah <span class="text-red-500">*</span>
+            <span class="text-slate-400 font-normal ml-1">(Boleh pilih satu atau lebih tarikh)</span>
+          </label>
+          <div id="dateCheckboxContainer" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs"></div>
         </div>
 
         <!-- Nama & Jawatan -->
@@ -118,63 +114,26 @@
           </div>
         </div>
 
-        <!-- Sedia Ceramah Di DUN -->
+        <!-- Sedia Ceramah Di DUN (28 DUN BN & PN) -->
         <div>
           <label class="block text-xs font-semibold text-slate-700 mb-1.5">
             Sedia Ceramah Di DUN <span class="text-red-500">*</span>
             <span class="text-slate-400 font-normal ml-1">(Pilih satu atau lebih DUN kesediaan penceramah)</span>
           </label>
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs">
-            <label class="flex items-center gap-2 cursor-pointer hover:text-blue-900 transition font-medium">
-              <input type="checkbox" name="sediaTempat" value="Bukit Katil (Kerusi Calon PAS)" class="w-4 h-4 text-blue-900 rounded border-slate-300 focus:ring-blue-800" />
-              <span>Bukit Katil (Kerusi Calon PAS)</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer hover:text-blue-900 transition font-medium">
-              <input type="checkbox" name="sediaTempat" value="Paya Rumput (Kerusi Calon PAS)" class="w-4 h-4 text-blue-900 rounded border-slate-300 focus:ring-blue-800" />
-              <span>Paya Rumput (Kerusi Calon PAS)</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer hover:text-blue-900 transition font-medium">
-              <input type="checkbox" name="sediaTempat" value="Bemban (Kerusi Calon Wawasan)" class="w-4 h-4 text-blue-900 rounded border-slate-300 focus:ring-blue-800" />
-              <span>Bemban (Kerusi Calon Wawasan)</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer hover:text-blue-900 transition font-medium">
-              <input type="checkbox" name="sediaTempat" value="Kesidang (Kerusi Calon Wawasan)" class="w-4 h-4 text-blue-900 rounded border-slate-300 focus:ring-blue-800" />
-              <span>Kesidang (Kerusi Calon Wawasan)</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer hover:text-blue-900 transition font-medium">
-              <input type="checkbox" name="sediaTempat" value="Ayer Keroh (Kerusi Calon Gerakan)" class="w-4 h-4 text-blue-900 rounded border-slate-300 focus:ring-blue-800" />
-              <span>Ayer Keroh (Kerusi Calon Gerakan)</span>
-            </label>
-          </div>
+          <div id="dunCheckboxContainer" class="space-y-3 p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs max-h-96 overflow-y-auto"></div>
         </div>
 
-        <!-- Ruangan Muat Naik Gambar & Kad Pengenalan -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <!-- 1. Muat Naik Gambar Penceramah -->
-          <div class="bg-blue-50/70 border border-blue-200 rounded-xl p-4">
-            <label class="block text-xs font-bold text-slate-900 mb-1">
-              <i class="fa-solid fa-camera text-[#173059] mr-1.5"></i> Gambar Penceramah (Format HD)
-            </label>
-            <p class="text-[11px] text-slate-500 mb-2">
-              Digunakan untuk tujuan penghasilan poster kempen (Maksimum 5MB).
-            </p>
-            <input type="file" id="fileGambar" accept="image/jpeg,image/png,image/webp" 
-              class="w-full text-xs text-slate-600 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-[#173059] file:text-white hover:file:bg-[#10223f] cursor-pointer" />
-            <div id="fileExistingGambarLabel" class="hidden mt-2 text-[11px] text-emerald-700 font-semibold"></div>
-          </div>
-
-          <!-- 2. Muat Naik Salinan Kad Pengenalan -->
-          <div class="bg-sky-50/70 border border-sky-200 rounded-xl p-4">
-            <label class="block text-xs font-bold text-slate-900 mb-1">
-              <i class="fa-regular fa-id-card text-sky-800 mr-1.5"></i> Salinan Kad Pengenalan (HD / PDF)
-            </label>
-            <p class="text-[11px] text-slate-500 mb-2">
-              Digunakan secara sulit untuk permit polis (tidak dipaparkan di web, maks 5MB).
-            </p>
-            <input type="file" id="fileIC" accept="image/jpeg,image/png,image/webp,.pdf" 
-              class="w-full text-xs text-slate-600 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-sky-800 file:text-white hover:file:bg-sky-900 cursor-pointer" />
-            <div id="fileExistingICLabel" class="hidden mt-2 text-[11px] text-slate-600 font-medium"></div>
-          </div>
+        <!-- Ruangan Muat Naik Gambar Penceramah -->
+        <div class="bg-blue-50/70 border border-blue-200 rounded-xl p-4">
+          <label class="block text-xs font-bold text-slate-900 mb-1">
+            <i class="fa-solid fa-camera text-[#173059] mr-1.5"></i> Gambar Penceramah (Format HD)
+          </label>
+          <p class="text-[11px] text-slate-500 mb-2">
+            Digunakan untuk tujuan penghasilan poster kempen (Maksimum 5MB).
+          </p>
+          <input type="file" id="fileGambar" accept="image/jpeg,image/png,image/webp"
+            class="w-full text-xs text-slate-600 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-[#173059] file:text-white hover:file:bg-[#10223f] cursor-pointer" />
+          <div id="fileExistingGambarLabel" class="hidden mt-2 text-[11px] text-emerald-700 font-semibold"></div>
         </div>
 
         <div class="flex justify-end gap-2 pt-2">
@@ -214,7 +173,6 @@
                 <th class="py-3.5 px-4 font-bold text-center">Tarikh</th>
                 <th class="py-3.5 px-4 font-bold min-w-[240px]">Sedia Di DUN (Tag)</th>
                 <th class="py-3.5 px-3 font-bold text-center">Gambar HD</th>
-                <th class="py-3.5 px-3 font-bold text-center">Status IC</th>
                 <th class="py-3.5 px-4 font-bold text-center">Tindakan</th>
               </tr>
             </thead>
@@ -230,19 +188,110 @@
   </main>
 
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzt0soGELMXkHdLbNAc2zHVPe1qEwS6o0VCBUbr7v2lJWkWBx5RXA3ZrhhRGIDCnh8r/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwjCH4oGq9g21PGu6Mu5jPIgeVU-dbbXkcbkVhBtI9MPuqrDaTVhjui7uGiDRN-j89W/exec";
     let speakerList = [];
     let activeDunFilter = "ALL";
 
     const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 
+    // Senarai 28 DUN Melaka - PRN ke-16 (Format: Nama DUN - Calon - Parti)
     const DUN_LIST = [
-      "Bukit Katil (Kerusi Calon PAS)",
-      "Paya Rumput (Kerusi Calon PAS)",
-      "Bemban (Kerusi Calon Wawasan)",
-      "Kesidang (Kerusi Calon Wawasan)",
-      "Ayer Keroh (Kerusi Calon Gerakan)"
+      { dun: "Kuala Linggi",    calon: "Calon BN", parti: "UMNO" },
+      { dun: "Tanjung Bidara",  calon: "Calon BN", parti: "UMNO" },
+      { dun: "Ayer Limau",      calon: "Calon BN", parti: "UMNO" },
+      { dun: "Lendu",           calon: "Calon BN", parti: "UMNO" },
+      { dun: "Taboh Naning",    calon: "Calon BN", parti: "UMNO" },
+      { dun: "Rembia",          calon: "Calon BN", parti: "UMNO" },
+      { dun: "Gadek",           calon: "Calon BN", parti: "MIC" },
+      { dun: "Machap Jaya",     calon: "Calon BN", parti: "MCA" },
+      { dun: "Durian Tunggal",  calon: "Calon BN", parti: "UMNO" },
+      { dun: "Asahan",          calon: "Calon BN", parti: "UMNO" },
+      { dun: "Sungai Udang",    calon: "Calon BN", parti: "UMNO" },
+      { dun: "Pantai Kundor",   calon: "Calon BN", parti: "UMNO" },
+      { dun: "Paya Rumput",     calon: "Calon PN", parti: "PAS" },
+      { dun: "Kelebang",        calon: "Calon BN", parti: "MCA" },
+      { dun: "Pengkalan Batu",  calon: "Calon BN", parti: "UMNO" },
+      { dun: "Ayer Keroh",      calon: "Calon PN", parti: "GERAKAN" },
+      { dun: "Bukit Katil",     calon: "Calon PN", parti: "PAS" },
+      { dun: "Ayer Molek",      calon: "Calon BN", parti: "UMNO" },
+      { dun: "Kesidang",        calon: "Calon PN", parti: "WAWASAN" },
+      { dun: "Kota Laksamana",  calon: "Calon BN", parti: "MCA" },
+      { dun: "Duyong",          calon: "Calon BN", parti: "UMNO" },
+      { dun: "Bandar Hilir",    calon: "Calon BN", parti: "MCA" },
+      { dun: "Telok Mas",       calon: "Calon BN", parti: "UMNO" },
+      { dun: "Bemban",          calon: "Calon PN", parti: "WAWASAN" },
+      { dun: "Rim",             calon: "Calon BN", parti: "UMNO" },
+      { dun: "Serkam",          calon: "Calon BN", parti: "UMNO" },
+      { dun: "Merlimau",        calon: "Calon BN", parti: "UMNO" },
+      { dun: "Sungai Rambai",   calon: "Calon BN", parti: "UMNO" }
     ];
+
+    const DUN_LABEL = (d) => `${d.dun} - ${d.calon} - ${d.parti}`;
+
+    // Tempoh berkempen: 6 Nov 2026 hingga 13 Nov 2026
+    const CAMPAIGN_DATES = (() => {
+      const dates = [];
+      const d = new Date(2026, 10, 6); // Bulan 10 = November
+      const end = new Date(2026, 10, 13);
+      while (d <= end) {
+        dates.push(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`);
+        d.setDate(d.getDate() + 1);
+      }
+      return dates;
+    })();
+
+    const HARI_MS = ["Ahad", "Isnin", "Selasa", "Rabu", "Khamis", "Jumaat", "Sabtu"];
+
+    function formatDateLabel(iso) {
+      const [y, m, day] = iso.split("-").map(Number);
+      const d = new Date(y, m - 1, day);
+      return `${HARI_MS[d.getDay()]} ${day}/${m}`;
+    }
+
+    // Render tickbox tarikh ceramah
+    function renderDateCheckboxes() {
+      const container = document.getElementById("dateCheckboxContainer");
+      container.innerHTML = CAMPAIGN_DATES.map(iso => `
+        <label class="flex items-center gap-2 cursor-pointer hover:text-blue-900 transition font-medium bg-white border border-slate-200 rounded-lg px-2.5 py-1.5">
+          <input type="checkbox" name="pilihTarikh" value="${iso}" class="w-4 h-4 text-blue-900 rounded border-slate-300 focus:ring-blue-800" />
+          <span>${formatDateLabel(iso)}</span>
+        </label>
+      `).join("");
+    }
+
+    // Render tickbox DUN (dikumpulkan mengikut parti)
+    function renderDunCheckboxes() {
+      const container = document.getElementById("dunCheckboxContainer");
+      const groups = ["UMNO", "MCA", "MIC", "PAS", "WAWASAN", "GERAKAN"];
+      const groupColors = {
+        UMNO: "bg-red-50 text-red-800 border-red-300",
+        MCA: "bg-blue-50 text-blue-800 border-blue-300",
+        MIC: "bg-purple-50 text-purple-800 border-purple-300",
+        PAS: "bg-emerald-50 text-emerald-800 border-emerald-300",
+        WAWASAN: "bg-indigo-50 text-indigo-800 border-indigo-300",
+        GERAKAN: "bg-amber-50 text-amber-800 border-amber-300"
+      };
+
+      container.innerHTML = groups.map(g => {
+        const items = DUN_LIST.filter(d => d.parti === g);
+        if (items.length === 0) return "";
+        return `
+          <div>
+            <div class="inline-flex items-center px-2 py-0.5 rounded border text-[10px] font-bold mb-1.5 ${groupColors[g]}">
+              ${g} (${items.length} DUN)
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1.5">
+              ${items.map(d => `
+                <label class="flex items-center gap-2 cursor-pointer hover:text-blue-900 transition font-medium">
+                  <input type="checkbox" name="sediaTempat" value="${escapeHTML(DUN_LABEL(d))}" class="w-4 h-4 text-blue-900 rounded border-slate-300 focus:ring-blue-800" />
+                  <span>${escapeHTML(DUN_LABEL(d))}</span>
+                </label>
+              `).join("")}
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
 
     // Fungsi Sanitasi XSS (Cross-Site Scripting)
     function escapeHTML(str) {
@@ -263,7 +312,7 @@
 
     async function loadData() {
       const tbody = document.getElementById("penceramahTableBody");
-      tbody.innerHTML = `<tr><td colspan="9" class="text-center py-8 text-slate-400"><i class="fa-solid fa-spinner fa-spin text-blue-900 text-sm mb-1"></i><br>Menyegerak rekod dari Google Sheet...</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="8" class="text-center py-8 text-slate-400"><i class="fa-solid fa-spinner fa-spin text-blue-900 text-sm mb-1"></i><br>Menyegerak rekod dari Google Sheet...</td></tr>`;
 
       try {
         const res = await fetch(`${SCRIPT_URL}?_=${Date.now()}`, { credentials: "omit" });
@@ -280,7 +329,13 @@
 
     function getTagStyle(rawName) {
       const lower = rawName.toLowerCase();
-      if (lower.includes("pas")) {
+      if (lower.includes("umno")) {
+        return "bg-red-50 text-red-800 border-red-300 hover:bg-red-100";
+      } else if (lower.includes("mca")) {
+        return "bg-blue-50 text-blue-800 border-blue-300 hover:bg-blue-100";
+      } else if (lower.includes("mic")) {
+        return "bg-purple-50 text-purple-800 border-purple-300 hover:bg-purple-100";
+      } else if (lower.includes("pas")) {
         return "bg-emerald-50 text-emerald-800 border-emerald-300 hover:bg-emerald-100";
       } else if (lower.includes("wawasan")) {
         return "bg-indigo-50 text-indigo-800 border-indigo-300 hover:bg-indigo-100";
@@ -294,13 +349,14 @@
       const container = document.getElementById("dunFilterContainer");
       
       const counts = {};
-      DUN_LIST.forEach(d => counts[d] = 0);
+      DUN_LIST.forEach(d => counts[d.dun] = 0);
       let totalCount = speakerList.length;
 
       speakerList.forEach(s => {
         const dunStr = s.sediaTempat || "";
         DUN_LIST.forEach(d => {
-          if (dunStr.includes(d)) counts[d]++;
+          // Padan ikut nama DUN sahaja - serasi dengan format label lama & baharu
+          if (dunStr.includes(d.dun)) counts[d.dun]++;
         });
       });
 
@@ -314,16 +370,15 @@
         </button>
       `;
 
-      DUN_LIST.forEach(dun => {
-        const isSelected = activeDunFilter === dun;
-        const shortLabel = dun.replace(" (Kerusi Calon", " -").replace(")", "");
+      DUN_LIST.forEach(d => {
+        const isSelected = activeDunFilter === d.dun;
         const style = isSelected 
           ? 'bg-[#173059] text-white border-[#173059] shadow-sm' 
           : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50';
 
         html += `
-          <button onclick="setFilter('${escapeHTML(dun)}')" class="px-2.5 py-1 rounded-lg text-[11px] font-semibold border transition ${style}">
-            ${escapeHTML(shortLabel)} <span class="ml-1 opacity-75">(${counts[dun]})</span>
+          <button onclick="setFilter('${escapeHTML(d.dun)}')" title="${escapeHTML(DUN_LABEL(d))}" class="px-2.5 py-1 rounded-lg text-[11px] font-semibold border transition ${style}">
+            ${escapeHTML(d.dun)} <span class="ml-1 opacity-75">(${counts[d.dun]})</span>
           </button>
         `;
       });
@@ -362,13 +417,14 @@
       
       const filteredList = speakerList.filter(item => {
         if (activeDunFilter === "ALL") return true;
+        // Padan ikut nama DUN sahaja - serasi dengan format label lama & baharu
         return (item.sediaTempat || "").includes(activeDunFilter);
       });
 
       if (filteredList.length === 0) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="9" class="text-center py-12 text-slate-400">
+            <td colspan="8" class="text-center py-12 text-slate-400">
               <i class="fa-regular fa-folder-open text-2xl text-slate-300 mb-2"></i>
               <p>Tiada rekod penceramah dijumpai ${activeDunFilter !== "ALL" ? `bagi DUN <b>${escapeHTML(activeDunFilter)}</b>` : "di Google Sheet"}.</p>
             </td>
@@ -381,7 +437,18 @@
         const originalIndex = speakerList.indexOf(item);
         const cleanTel = (item.telPenceramah || "").replace(/[^0-9]/g, '');
         const cleanPA = (item.telPA || "").replace(/[^0-9]/g, '');
-        const dateFormatted = escapeHTML(item.tarikh || "").replace(/→|->/g, '\n→\n');
+
+        // Papar tarikh sebagai cip yang mudah dibaca (sokongan format lama & baharu)
+        const dateChips = (item.tarikh || "")
+          .split(/,|→|->/)
+          .map(t => t.trim())
+          .filter(Boolean)
+          .map(t => {
+            const isoMatch = t.match(/\d{4}-\d{2}-\d{2}/);
+            const label = isoMatch ? formatDateLabel(isoMatch[0]) : t;
+            return `<span class="inline-block bg-slate-100 text-slate-700 border border-slate-200 rounded px-1.5 py-0.5 text-[10px] font-semibold mb-1">${escapeHTML(label)}</span>`;
+          })
+          .join("");
 
         let gambarBtn = `<span class="text-slate-400 text-[11px]">Tiada</span>`;
         if (isSafeDriveUrl(item.gambarUrl)) {
@@ -389,17 +456,6 @@
             <a href="${encodeURI(item.gambarUrl)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 bg-emerald-50 text-emerald-800 border border-emerald-300 px-2 py-0.5 rounded text-[11px] font-bold hover:bg-emerald-100 transition shadow-sm">
               <i class="fa-solid fa-image text-emerald-600"></i> Lihat
             </a>`;
-        }
-
-        let icIndicator = `
-          <span class="inline-flex items-center gap-1 bg-slate-100 text-slate-500 border border-slate-200 px-2 py-0.5 rounded-full text-[10px] font-medium">
-            <i class="fa-solid fa-circle-xmark text-slate-400"></i> Tiada
-          </span>`;
-        if (isSafeDriveUrl(item.icUrl)) {
-          icIndicator = `
-            <span class="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-0.5 rounded-full text-[10px] font-bold">
-              <i class="fa-solid fa-circle-check text-emerald-600"></i> Ada
-            </span>`;
         }
 
         return `
@@ -412,10 +468,9 @@
             <td class="py-3.5 px-4 font-mono text-slate-600 align-top">
               ${cleanPA ? `<a href="tel:${cleanPA}" class="hover:underline text-slate-700">${escapeHTML(item.telPA)}</a>` : '-'}
             </td>
-            <td class="py-3.5 px-4 text-center font-mono text-[11px] text-slate-600 align-top whitespace-pre-line">${dateFormatted}</td>
+            <td class="py-3 px-4 text-center align-top"><div class="flex flex-col items-center">${dateChips}</div></td>
             <td class="py-3 px-4 align-top">${renderTags(item.sediaTempat)}</td>
             <td class="py-3.5 px-3 text-center align-top">${gambarBtn}</td>
-            <td class="py-3.5 px-3 text-center align-top">${icIndicator}</td>
             <td class="py-3.5 px-4 text-center align-top">
               <div class="flex items-center justify-center gap-2">
                 <button onclick="editMaklumat(${originalIndex})" class="text-blue-700 hover:text-blue-900 font-bold">Edit</button>
@@ -435,22 +490,23 @@
       document.getElementById("editRowIndex").value = s.rowIndex || (index + 2);
       document.getElementById("nama").value = s.nama;
       document.getElementById("jawatan").value = s.jawatan;
-      document.getElementById("noKP").value = s.ic || "";
       document.getElementById("noTelPenceramah").value = s.telPenceramah;
       document.getElementById("noTelPA").value = (s.telPA === '-' ? '' : s.telPA);
       document.getElementById("existingGambarUrl").value = s.gambarUrl || "";
-      document.getElementById("existingIcUrl").value = s.icUrl || "";
 
       const sediaList = (s.sediaTempat || "").split(',').map(x => x.trim());
       document.querySelectorAll('input[name="sediaTempat"]').forEach(cb => {
         cb.checked = sediaList.includes(cb.value);
       });
 
-      const parts = (s.tarikh || "").split(/→|->/).map(p => p.trim());
-      if (parts.length >= 2) {
-        document.getElementById("tarikhMula").value = parts[0];
-        document.getElementById("tarikhAkhir").value = parts[1];
-      }
+      // Pulihkan tickbox tarikh (sokongan format baharu & lama)
+      const tarikhList = (s.tarikh || "").split(/,|→|->/).map(p => {
+        const m = p.trim().match(/\d{4}-\d{2}-\d{2}/);
+        return m ? m[0] : null;
+      }).filter(Boolean);
+      document.querySelectorAll('input[name="pilihTarikh"]').forEach(cb => {
+        cb.checked = tarikhList.includes(cb.value);
+      });
 
       const gLabel = document.getElementById("fileExistingGambarLabel");
       if (isSafeDriveUrl(s.gambarUrl)) {
@@ -458,14 +514,6 @@
         gLabel.classList.remove("hidden");
       } else {
         gLabel.classList.add("hidden");
-      }
-
-      const icLabel = document.getElementById("fileExistingICLabel");
-      if (isSafeDriveUrl(s.icUrl)) {
-        icLabel.innerHTML = `<i class="fa-solid fa-shield-halved text-emerald-600 mr-1"></i> Salinan IC sudah selamat disimpan di arkib sulit Drive. (Pilih fail baharu jika perlu menggantikan).`;
-        icLabel.classList.remove("hidden");
-      } else {
-        icLabel.classList.add("hidden");
       }
 
       document.getElementById("formTitle").innerText = `Kemaskini Rekod: ${s.nama}`;
@@ -505,24 +553,22 @@
       document.getElementById("penceramahForm").reset();
       document.getElementById("editRowIndex").value = "";
       document.getElementById("existingGambarUrl").value = "";
-      document.getElementById("existingIcUrl").value = "";
       document.getElementById("fileExistingGambarLabel").classList.add("hidden");
-      document.getElementById("fileExistingICLabel").classList.add("hidden");
 
       document.querySelectorAll('input[name="sediaTempat"]').forEach(cb => cb.checked = false);
+      document.querySelectorAll('input[name="pilihTarikh"]').forEach(cb => cb.checked = false);
 
       document.getElementById("formTitle").innerText = "Daftar Jadual & Maklumat Penceramah";
-      document.getElementById("formSubtitle").innerText = "Sila isi maklumat dengan lengkap dan tepat (beserta IC) untuk tujuan kelulusan permit polis serta muat naik gambar penceramah untuk tujuan penghasilan poster.";
+      document.getElementById("formSubtitle").innerText = "Sila isi maklumat dengan lengkap dan tepat untuk tujuan penjadualan ceramah serta muat naik gambar penceramah untuk tujuan penghasilan poster.";
       document.getElementById("btnHantar").innerText = "Hantar";
       document.getElementById("btnHantar").className = "bg-[#173059] hover:bg-[#0f213d] text-white text-xs font-bold px-8 py-2.5 rounded-xl shadow transition active:scale-95";
       document.getElementById("cancelEditBtn").classList.add("hidden");
     }
 
-    // Salin maklumat ke clipboard tanpa mendedahkan nombor IC
+    // Salin maklumat ke clipboard tanpa mendedahkan sebarang maklumat sulit
     function salinMaklumat(index) {
       const s = speakerList[index];
-      const hasIC = isSafeDriveUrl(s.icUrl) ? 'Disimpan di Arkib Sulit (Tersedia di Sheet)' : 'Tiada';
-      const text = `NAMA: ${s.nama}\nNO. TEL PENCERAMAH: ${s.telPenceramah}\nNO. TEL PA: ${s.telPA || '-'}\nJAWATAN: ${s.jawatan}\nTARIKH: ${s.tarikh.replace(/\n/g, ' ')}\nSEDIA CERAMAH DI DUN: ${s.sediaTempat || '-'}\nLINK GAMBAR HD: ${s.gambarUrl || 'Tiada'}\nSTATUS SALINAN IC: ${hasIC}`;
+      const text = `NAMA: ${s.nama}\nNO. TEL PENCERAMAH: ${s.telPenceramah}\nNO. TEL PA: ${s.telPA || '-'}\nJAWATAN: ${s.jawatan}\nTARIKH: ${(s.tarikh || '').replace(/\n/g, ' ')}\nSEDIA CERAMAH DI DUN: ${s.sediaTempat || '-'}\nLINK GAMBAR HD: ${s.gambarUrl || 'Tiada'}`;
       navigator.clipboard.writeText(text);
       alert(`Maklumat rasmi ${s.nama} telah disalin!`);
     }
@@ -542,7 +588,16 @@
     async function handleSubmit(e) {
       e.preventDefault();
 
-      // 1. Validasi DUN
+      // 1. Validasi Tarikh (sekurang-kurangnya satu tarikh dipilih)
+      const checkedDates = Array.from(document.querySelectorAll('input[name="pilihTarikh"]:checked')).map(cb => cb.value);
+      if (checkedDates.length === 0) {
+        alert("Sila pilih sekurang-kurangnya satu tarikh ceramah!");
+        return;
+      }
+      checkedDates.sort();
+      const tarikhGabung = checkedDates.join(", ");
+
+      // 2. Validasi DUN
       const checkedBoxes = Array.from(document.querySelectorAll('input[name="sediaTempat"]:checked')).map(cb => cb.value);
       if (checkedBoxes.length === 0) {
         alert("Sila pilih sekurang-kurangnya satu DUN di bahagian 'Sedia Ceramah Di DUN'!");
@@ -550,22 +605,13 @@
       }
       const sediaTempatVal = checkedBoxes.join(', ');
 
-      // 2. Validasi Format No KP (Mesti 12 Angka)
+      // 3. Validasi Format No KP (Mesti 12 Angka)
       const rawIC = document.getElementById("noKP").value.replace(/[^0-9]/g, "");
       if (rawIC.length !== 12) {
         alert("Sila pastikan Nombor Kad Pengenalan mengandungi tepat 12 digit nombor tanpa tanda sempang (-)!");
         document.getElementById("noKP").focus();
         return;
       }
-
-      // 3. Validasi Tarikh
-      const tMula = document.getElementById("tarikhMula").value;
-      const tAkhir = document.getElementById("tarikhAkhir").value;
-      if (tAkhir < tMula) {
-        alert("Tarikh Akhir tidak boleh lebih awal daripada Tarikh Mula!");
-        return;
-      }
-      const tarikhGabung = `${tMula} → ${tAkhir}`;
 
       // 4. Validasi Fail Gambar (Saiz Maksimum 5MB)
       const fileGambarInput = document.getElementById("fileGambar");
@@ -579,20 +625,6 @@
         gambarName = fG.name;
         gambarType = fG.type;
         try { gambarBase64 = await readFileAsBase64(fG); } catch (e) { console.warn(e); }
-      }
-
-      // 5. Validasi Fail IC (Saiz Maksimum 5MB)
-      const fileICInput = document.getElementById("fileIC");
-      let icBase64 = null, icName = null, icType = null;
-      if (fileICInput.files.length > 0) {
-        const fI = fileICInput.files[0];
-        if (fI.size > MAX_FILE_SIZE) {
-          alert(`Fail salinan IC ${fI.name} melebihi had saiz 5MB! Sila pilih fail yang lebih kecil.`);
-          return;
-        }
-        icName = fI.name;
-        icType = fI.type;
-        try { icBase64 = await readFileAsBase64(fI); } catch (e) { console.warn(e); }
       }
 
       const btn = document.getElementById("btnHantar");
@@ -610,13 +642,9 @@
         tarikh: tarikhGabung,
         sediaTempat: sediaTempatVal,
         existingGambarUrl: document.getElementById("existingGambarUrl").value,
-        existingIcUrl: document.getElementById("existingIcUrl").value,
         gambarBase64: gambarBase64,
         gambarName: gambarName,
-        gambarType: gambarType,
-        icBase64: icBase64,
-        icName: icName,
-        icType: icType
+        gambarType: gambarType
       };
 
       try {
@@ -638,6 +666,8 @@
       }
     }
 
+    renderDateCheckboxes();
+    renderDunCheckboxes();
     loadData();
   </script>
 </body>
