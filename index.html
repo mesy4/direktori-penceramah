@@ -3,48 +3,77 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Borang Penceramah Gabungan BN-PN - PRN Melaka ke-16</title>
+  <meta name="referrer" content="no-referrer" />
+  <meta http-equiv="Cache-Control" content="no-store" />
+  <title>Borang Penceramah Gabungan PN-BN - PRN Melaka ke-16</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
+    html { scroll-behavior: smooth; }
     .pn-header-bg {
       background: linear-gradient(135deg, #0b1a33 0%, #173059 55%, #0b1a33 100%);
     }
+    .manifesto-bg {
+      background: linear-gradient(120deg, #0b1a33 0%, #1d3a6b 50%, #0b1a33 100%);
+    }
+    .card-hover {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px -5px rgba(23, 48, 89, 0.15);
+    }
+    tr.data-row { transition: background-color 0.15s ease; }
   </style>
 </head>
 <body class="bg-[#f1f5f9] text-slate-800 font-sans antialiased pb-24">
 
   <!-- Header Banner -->
   <header class="pn-header-bg text-white py-6 px-4 border-b-2 border-amber-400 shadow-md">
-    <div class="max-w-6xl mx-auto flex items-center justify-between gap-4">
-      
-      <!-- Bendera Negeri Melaka Tempatan (Kiri) -->
+    <div class="max-w-6xl mx-auto flex items-center justify-between gap-3">
+
+      <!-- Bendera Negeri Melaka (Paling Kiri) -->
       <div class="flex items-center shrink-0">
         <div class="bg-white/10 p-1.5 rounded-xl border border-white/20 shadow-sm flex items-center justify-center">
-          <img src="Flag_of_Malacca.svg" 
-               alt="Bendera Negeri Melaka" 
-               class="h-10 md:h-14 w-auto object-contain rounded shadow-sm" 
-               onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Flag_of_Malacca.svg/640px-Flag_of_Malacca.svg.png';" />
+          <img src="Flag_of_Malacca.svg"
+               alt="Bendera Negeri Melaka"
+               class="h-10 md:h-14 w-auto object-contain rounded shadow-sm"
+               onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI0OCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjQ4IiBmaWxsPSIjZGRkIi8+PC9zdmc+';" />
+        </div>
+      </div>
+
+      <!-- Logo PN - Muafakat Melaka (Kiri) -->
+      <div class="flex items-center shrink-0">
+        <div class="bg-white p-1 rounded-xl shadow-md flex items-center justify-center border border-white/40">
+          <img src="Logo Muafakat Melaka.png"
+               alt="Logo Muafakat Melaka - Perikatan Nasional"
+               class="h-11 md:h-16 w-auto object-contain"
+               onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZGRkIi8+PC9zdmc+';" />
         </div>
       </div>
 
       <!-- Tajuk Utama Dua Baris (Tengah) -->
       <div class="text-center px-2 flex-1">
         <h1 class="text-lg md:text-2xl font-black tracking-tight text-white uppercase drop-shadow-sm">
-          Borang Penceramah Gabungan BN-PN
+          Borang Penceramah Gabungan PN-BN
         </h1>
         <p class="text-sm md:text-base text-amber-400 font-extrabold tracking-wide mt-1 uppercase">
           PRN Melaka ke- 16
         </p>
+        <p class="text-[11px] md:text-xs text-slate-200 font-semibold mt-1 tracking-wide">
+          <span class="text-sky-300">Muafakat Melaka</span>
+          <span class="mx-1 text-white/40">•</span>
+          <span class="text-amber-300">BN Sayang Rakyat</span>
+        </p>
       </div>
 
-      <!-- Logo Muafakat Melaka (Kanan) -->
+      <!-- Logo BN Sayang Rakyat (Kanan) -->
       <div class="flex items-center shrink-0">
         <div class="bg-white p-1 rounded-xl shadow-md flex items-center justify-center border border-white/40">
-          <img src="Logo Muafakat Melaka.png" 
-               alt="Logo Muafakat Melaka" 
-               class="h-11 md:h-16 w-auto object-contain" 
-               onerror="this.onerror=null; this.src='logo-muafakat-melaka.png';" />
+          <img src="bn-sayang-rakyat-logo.jpeg"
+               alt="Logo BN Sayang Rakyat - Barisan Nasional"
+               class="h-11 md:h-16 w-auto object-contain"
+               onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZGRkIi8+PC9zdmc+';" />
         </div>
       </div>
 
@@ -52,6 +81,43 @@
   </header>
 
   <main class="max-w-6xl mx-auto px-4 py-8 space-y-6">
+
+    <!-- Banner Manifesto Gabungan PN-BN -->
+    <div id="manifestoBanner" class="manifesto-bg rounded-2xl shadow-lg border border-white/10 p-5 md:p-6 text-white card-hover">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="flex-1">
+          <p class="text-[10px] uppercase tracking-[0.2em] text-amber-400 font-bold mb-1">
+            <i class="fa-solid fa-book-open mr-1"></i> Manifesto Gabungan PN-BN • PRN Melaka ke-16
+          </p>
+          <h2 class="text-base md:text-xl font-black leading-snug">
+            "Membina Masa Depan Melaka, <span class="text-amber-400">Memakmurkan Negara</span>"
+          </h2>
+          <div class="flex flex-wrap items-center gap-1.5 mt-2.5">
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-white/10 border border-white/20 text-[10px] font-bold">
+              <i class="fa-solid fa-bullseye text-amber-400 mr-1"></i> 1 Matlamat
+            </span>
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-white/10 border border-white/20 text-[10px] font-bold">
+              <i class="fa-solid fa-layer-group text-sky-300 mr-1"></i> 6 Teras
+            </span>
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-white/10 border border-white/20 text-[10px] font-bold">
+              <i class="fa-solid fa-lightbulb text-emerald-300 mr-1"></i> 113 Inisiatif
+            </span>
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-sky-500/20 border border-sky-300/30 text-[10px] font-bold text-sky-200">
+              Muafakat Melaka
+            </span>
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-300/30 text-[10px] font-bold text-amber-200">
+              BN Sayang Rakyat
+            </span>
+          </div>
+        </div>
+        <div class="shrink-0">
+          <a href="manifesto-prn16.pdf" download="Manifesto-PN-BN-PRN-Melaka-16.pdf"
+             class="inline-flex items-center gap-2 bg-amber-400 hover:bg-amber-300 text-[#0b1a33] text-xs font-black px-5 py-3 rounded-xl shadow-lg transition active:scale-95">
+            <i class="fa-solid fa-file-arrow-down text-sm"></i> Muat Turun Manifesto (PDF)
+          </a>
+        </div>
+      </div>
+    </div>
 
     <!-- 1. Borang Pendaftaran / Kemaskini Penceramah -->
     <div id="formContainer" class="bg-white rounded-2xl shadow-sm border border-slate-200/90 p-6 md:p-8 transition">
@@ -185,6 +251,15 @@
 
     </div>
 
+    <!-- Footer Slogan -->
+    <footer class="text-center py-6 text-xs text-slate-500 space-y-1">
+      <p class="font-bold text-slate-600">
+        <span class="text-sky-700">Muafakat Melaka</span> • <span class="text-amber-600">BN Sayang Rakyat</span>
+      </p>
+      <p>"Membina Masa Depan Melaka, Memakmurkan Negara" — Manifesto Gabungan PN-BN, PRN Melaka ke-16</p>
+      <p class="text-[10px] text-slate-400">Portal Rasmi Pendaftaran Penceramah Gabungan PN-BN &copy; 2026</p>
+    </footer>
+
   </main>
 
   <script>
@@ -193,6 +268,18 @@
     let activeDunFilter = "ALL";
 
     const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
+
+    // Keselamatan: hadkan kekerapan hantar borang (elak spam/abuse)
+    let lastSubmitTime = 0;
+    const SUBMIT_COOLDOWN_MS = 3000;
+
+    // Keselamatan: sanitasi input teks - buang aksara kawalan & sudut berbahaya
+    function sanitizeText(str) {
+      return String(str || "")
+        .replace(/[<>`$]/g, "")      // buang < > ` $
+        .replace(/[\x00-\x1F\x7F]/g, "") // buang aksara kawalan
+        .trim();
+    }
 
     // Senarai 28 DUN Melaka - PRN ke-16 (Format: Nama DUN - Calon - Parti)
     const DUN_LIST = [
@@ -361,7 +448,7 @@
       });
 
       let html = `
-        <button onclick="setFilter('ALL')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold border transition ${
+        <button data-filter="ALL" class="px-2.5 py-1 rounded-lg text-[11px] font-bold border transition ${
           activeDunFilter === 'ALL'
             ? 'bg-[#173059] text-white border-[#173059] shadow-sm'
             : 'bg-slate-100 text-slate-600 border-slate-200 hover:bg-slate-200'
@@ -377,7 +464,7 @@
           : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50';
 
         html += `
-          <button onclick="setFilter('${escapeHTML(d.dun)}')" title="${escapeHTML(DUN_LABEL(d))}" class="px-2.5 py-1 rounded-lg text-[11px] font-semibold border transition ${style}">
+          <button data-filter="${escapeHTML(d.dun)}" title="${escapeHTML(DUN_LABEL(d))}" class="px-2.5 py-1 rounded-lg text-[11px] font-semibold border transition ${style}">
             ${escapeHTML(d.dun)} <span class="ml-1 opacity-75">(${counts[d.dun]})</span>
           </button>
         `;
@@ -385,6 +472,12 @@
 
       container.innerHTML = html;
     }
+
+    // Event delegation untuk penapis DUN (selamat dari XSS - tiada inline handler)
+    document.getElementById("dunFilterContainer").addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-filter]");
+      if (btn) setFilter(btn.dataset.filter);
+    });
 
     function setFilter(dun) {
       activeDunFilter = dun;
@@ -403,7 +496,7 @@
           ${tags.map(tag => {
             const style = getTagStyle(tag);
             return `
-              <span onclick="setFilter('${escapeHTML(tag)}')" title="Klik untuk tapis penceramah bagi ${escapeHTML(tag)}" class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold border cursor-pointer transition select-none shadow-xs ${style}">
+              <span data-filter="${escapeHTML(tag)}" title="Klik untuk tapis penceramah bagi ${escapeHTML(tag)}" class="tag-chip inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold border cursor-pointer transition select-none shadow-xs ${style}">
                 <i class="fa-solid fa-tag text-[9px] opacity-70"></i>
                 ${escapeHTML(tag)}
               </span>`;
@@ -420,6 +513,13 @@
         // Padan ikut nama DUN sahaja - serasi dengan format label lama & baharu
         return (item.sediaTempat || "").includes(activeDunFilter);
       });
+
+      // Susun penceramah: tarikh terawal di atas, terkini di bawah
+      const getEarliestDate = (t) => {
+        const dates = (t || "").match(/\d{4}-\d{2}-\d{2}/g);
+        return dates ? dates.sort()[0] : "9999-12-31"; // rekod tanpa tarikh di hujung
+      };
+      filteredList.sort((a, b) => getEarliestDate(a.tarikh).localeCompare(getEarliestDate(b.tarikh)));
 
       if (filteredList.length === 0) {
         tbody.innerHTML = `
@@ -473,17 +573,33 @@
             <td class="py-3.5 px-3 text-center align-top">${gambarBtn}</td>
             <td class="py-3.5 px-4 text-center align-top">
               <div class="flex items-center justify-center gap-2">
-                <button onclick="editMaklumat(${originalIndex})" class="text-blue-700 hover:text-blue-900 font-bold">Edit</button>
+                <button data-action="edit" data-index="${originalIndex}" class="text-blue-700 hover:text-blue-900 font-bold">Edit</button>
                 <span class="text-slate-300">|</span>
-                <button onclick="salinMaklumat(${originalIndex})" class="text-slate-600 hover:text-slate-800 font-medium">Salin</button>
+                <button data-action="copy" data-index="${originalIndex}" class="text-slate-600 hover:text-slate-800 font-medium">Salin</button>
                 <span class="text-slate-300">|</span>
-                <button onclick="padamMaklumat(${originalIndex})" class="text-rose-600 hover:text-rose-800 font-semibold">Padam</button>
+                <button data-action="delete" data-index="${originalIndex}" class="text-rose-600 hover:text-rose-800 font-semibold">Padam</button>
               </div>
             </td>
           </tr>
         `;
       }).join('');
     }
+
+    // Event delegation untuk tag DUN dalam jadual & butang tindakan (selamat dari XSS)
+    document.getElementById("penceramahTableBody").addEventListener("click", (e) => {
+      const chip = e.target.closest(".tag-chip[data-filter]");
+      if (chip) {
+        setFilter(chip.dataset.filter);
+        document.getElementById("dunFilterContainer").scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      const btn = e.target.closest("button[data-action]");
+      if (!btn) return;
+      const idx = parseInt(btn.dataset.index, 10);
+      if (btn.dataset.action === "edit") editMaklumat(idx);
+      else if (btn.dataset.action === "copy") salinMaklumat(idx);
+      else if (btn.dataset.action === "delete") padamMaklumat(idx);
+    });
 
     function editMaklumat(index) {
       const s = speakerList[index];
@@ -588,6 +704,13 @@
     async function handleSubmit(e) {
       e.preventDefault();
 
+      // Keselamatan: cooldown antara hantaran (elak spam)
+      const now = Date.now();
+      if (now - lastSubmitTime < SUBMIT_COOLDOWN_MS) {
+        alert("Sila tunggu sebentar sebelum menghantar semula.");
+        return;
+      }
+
       // 1. Validasi Tarikh (sekurang-kurangnya satu tarikh dipilih)
       const checkedDates = Array.from(document.querySelectorAll('input[name="pilihTarikh"]:checked')).map(cb => cb.value);
       if (checkedDates.length === 0) {
@@ -613,6 +736,20 @@
         return;
       }
 
+      // 3b. Keselamatan: Validasi ketat nombor telefon (9-15 digit sahaja)
+      const rawTel = document.getElementById("noTelPenceramah").value.replace(/[^0-9]/g, "");
+      if (rawTel.length < 9 || rawTel.length > 15) {
+        alert("No Telefon Penceramah mesti mengandungi 9 hingga 15 digit nombor sahaja!");
+        document.getElementById("noTelPenceramah").focus();
+        return;
+      }
+      const rawTelPA = document.getElementById("noTelPA").value.replace(/[^0-9]/g, "");
+      if (rawTelPA && (rawTelPA.length < 9 || rawTelPA.length > 15)) {
+        alert("No Telefon PA mesti mengandungi 9 hingga 15 digit nombor sahaja!");
+        document.getElementById("noTelPA").focus();
+        return;
+      }
+
       // 4. Validasi Fail Gambar (Saiz Maksimum 5MB)
       const fileGambarInput = document.getElementById("fileGambar");
       let gambarBase64 = null, gambarName = null, gambarType = null;
@@ -634,11 +771,11 @@
       const payload = {
         action: "save",
         rowIndex: document.getElementById("editRowIndex").value,
-        nama: document.getElementById("nama").value.trim(),
-        jawatan: document.getElementById("jawatan").value.trim(),
+        nama: sanitizeText(document.getElementById("nama").value),
+        jawatan: sanitizeText(document.getElementById("jawatan").value),
         ic: rawIC,
-        telPenceramah: document.getElementById("noTelPenceramah").value.trim(),
-        telPA: document.getElementById("noTelPA").value.trim(),
+        telPenceramah: rawTel,
+        telPA: rawTelPA,
         tarikh: tarikhGabung,
         sediaTempat: sediaTempatVal,
         existingGambarUrl: document.getElementById("existingGambarUrl").value,
@@ -658,6 +795,9 @@
 
         alert(payload.rowIndex ? "Maklumat penceramah berjaya dikemaskini!" : "Penceramah dan fail dokumen berjaya didaftarkan!");
         resetFormToNew();
+        // Keselamatan: pastikan No KP tidak kekal dalam DOM selepas hantar berjaya
+        document.getElementById("noKP").value = "";
+        lastSubmitTime = Date.now();
         setTimeout(loadData, 2000);
       } catch (err) {
         alert("Ralat memproses: " + err.message);
